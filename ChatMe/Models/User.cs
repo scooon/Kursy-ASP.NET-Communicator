@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace ChatMe.Models
 {
     public class User
@@ -17,5 +16,9 @@ namespace ChatMe.Models
         public string password { get; set; }
         public DateTime lastLogin { get; set; }
         public DateTime created { get; set; }
+
+
     }
+
+
 }
