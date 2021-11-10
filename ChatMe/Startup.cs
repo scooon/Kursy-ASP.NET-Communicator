@@ -27,7 +27,7 @@ namespace ChatMe
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<UserContext>(options =>
+            services.AddDbContext<ChatContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("UserContext")));
         }
 

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ChatMe.Models.Chat>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.isGroupMessage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.chatName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.chatColor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lastMessageTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.isGroupMessage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.chatName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.chatColor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastMessageTime)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.chatID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.chatID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.chatID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

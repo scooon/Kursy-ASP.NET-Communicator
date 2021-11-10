@@ -1,0 +1,42 @@
+﻿@model ChatMe.Models.Message
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Message</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.chatID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.chatID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.creatorID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.creatorID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.messageContent)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.messageContent)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.createdTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.createdTime)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.messageID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

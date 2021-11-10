@@ -69,7 +69,6 @@ G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\ChatMe.Tag
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\ChatMe.RazorCoreGenerate.cache
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
-G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Messages\Index.cshtml.g.cs
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -193,3 +192,18 @@ G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\View
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Users\Details.cshtml.g.cs
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Users\Edit.cshtml.g.cs
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Users\Index.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Chats\Create.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Chats\Delete.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Chats\Details.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Chats\Edit.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Chats\Index.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Settings\Create.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Settings\Delete.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Settings\Details.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Settings\Edit.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Settings\Index.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Messages\Create.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Messages\Delete.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Messages\Details.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Messages\Edit.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Messages\Index.cshtml.g.cs

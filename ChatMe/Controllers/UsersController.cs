@@ -12,9 +12,9 @@ namespace ChatMe.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly UserContext _context;
+        private readonly ChatContext _context;
 
-        public UsersController(UserContext context)
+        public UsersController(ChatContext context)
         {
             _context = context;
         }
@@ -34,7 +34,7 @@ namespace ChatMe.Controllers
             }
 
             var user = await _context.User
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (user == null)
             {
                 return NotFound();
@@ -89,9 +89,9 @@ namespace ChatMe.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,username,email,displayName,token,expire,about,password,lastLogin,created")] User user)
+        public async Task<IActionResult> Edit(int ID, [Bind("id,username,email,displayName,token,expire,about,password,lastLogin,created")] User user)
         {
-            if (id != user.id)
+            if (ID != user.ID)
             {
                 return NotFound();
             }
@@ -105,7 +105,7 @@ namespace ChatMe.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.id))
+                    if (!UserExists(user.ID))
                     {
                         return NotFound();
                     }
@@ -120,15 +120,15 @@ namespace ChatMe.Controllers
         }
 
         // GET: Users/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? ID)
         {
-            if (id == null)
+            if (ID == null)
             {
                 return NotFound();
             }
 
             var user = await _context.User
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.ID == ID);
             if (user == null)
             {
                 return NotFound();
@@ -148,9 +148,9 @@ namespace ChatMe.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(int ID)
         {
-            return _context.User.Any(e => e.id == id);
+            return _context.User.Any(e => e.ID == ID);
         }
     }
 }
