@@ -54,7 +54,7 @@ namespace ChatMe.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("chatID,isGroupMessage,chatName,chatColor,lastMessageTime")] Chat chat)
+        public async Task<IActionResult> Create([Bind("chatID,isGroupMessage,usersIDs,chatName,chatColor,lastMessageTime")] Chat chat)
         {
             if (ModelState.IsValid)
             {
