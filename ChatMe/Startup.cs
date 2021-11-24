@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ChatMe.Data;
+using ChatMe.Hubs;
 
 namespace ChatMe
 {
@@ -29,6 +30,8 @@ namespace ChatMe
 
             services.AddDbContext<ChatContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("UserContext")));
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +59,7 @@ namespace ChatMe
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }

@@ -207,3 +207,4 @@ G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\View
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Messages\Details.cshtml.g.cs
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Messages\Edit.cshtml.g.cs
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Messages\Index.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\bin\Debug\netcoreapp3.1\libman.json
