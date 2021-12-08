@@ -1,0 +1,16 @@
+﻿@model ChatMe.Models.User
+
+@{
+    ViewData["Title"] = "Logged";
+}
+
+<h1>Witaj, @Html.DisplayTextFor(model => model.displayName)</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @Html.DisplayTextFor(model => model.email)
+    </div>
+</div>
+
+

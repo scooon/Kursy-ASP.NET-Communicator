@@ -25,6 +25,8 @@ namespace ChatMe.Controllers
 
         public IActionResult Privacy()
         {
+            byte[] token;
+            HttpContext.Session.TryGetValue("SessionToken", out token);
             return View();
         }
 

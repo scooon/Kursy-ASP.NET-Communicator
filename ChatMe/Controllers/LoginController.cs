@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ChatMe.Data;
 using ChatMe.Models;
+using System.Text;
 
 namespace ChatMe.Controllers
 {
@@ -19,14 +20,14 @@ namespace ChatMe.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(object status)
         {
             return View();
         }
 
-        public IActionResult Login()
+        public IActionResult Logged(User currentLogin)
         {
-            return View();
+            return View(currentLogin);
         }
 
 
@@ -35,18 +36,28 @@ namespace ChatMe.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("username,password")] User loginData)
+        public async Task<IActionResult> Index([Bind("username,password")] User loginData)
         {
             if (ModelState.IsValid)
             {
                 var currentLogin = _context.User.FirstOrDefault(item => item.username == loginData.username);
-                if(currentLogin == null)
+                if (currentLogin == null)
                 {
-                    return NotFound();
+                    return RedirectToAction(nameof(Index), new { failed = true });
                 }
+
+                if (loginData.password == currentLogin.password)
+                {
+                    byte[] token = Encoding.UTF8.GetBytes("testowyToken");
+                    _context.Update(currentLogin);
+                    await _context.SaveChangesAsync();
+                    HttpContext.Session.Set("SessionToken", token);
+                    return RedirectToAction("Index", "Home", currentLogin);
+                }
+                
                 //_context.User.Add(message);
                 //await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                
             }
             return View(loginData);
         }
