@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ChatMe.Data;
 using ChatMe.Models;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace ChatMe.Controllers
 {
@@ -48,10 +49,12 @@ namespace ChatMe.Controllers
 
                 if (loginData.password == currentLogin.password)
                 {
-                    byte[] token = Encoding.UTF8.GetBytes("testowyToken");
                     _context.Update(currentLogin);
                     await _context.SaveChangesAsync();
-                    HttpContext.Session.Set("SessionToken", token);
+                    HttpContext.Session.SetString("SessionToken", "testowyToken");
+                    
+
+
                     return RedirectToAction("Index", "Home", currentLogin);
                 }
                 
