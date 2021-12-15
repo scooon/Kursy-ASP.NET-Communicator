@@ -49,13 +49,15 @@ namespace ChatMe.Controllers
 
                 if (loginData.password == currentLogin.password)
                 {
+                    currentLogin.token = System.Guid.NewGuid().ToString();
+                    currentLogin.lastLogin = DateTime.Now;
                     _context.Update(currentLogin);
                     await _context.SaveChangesAsync();
-                    HttpContext.Session.SetString("SessionToken", "testowyToken");
+                    HttpContext.Session.SetString("SessionToken", currentLogin.token);
                     
 
 
-                    return RedirectToAction("Index", "Home", currentLogin);
+                    return RedirectToAction("Index", "Home");
                 }
                 
                 //_context.User.Add(message);

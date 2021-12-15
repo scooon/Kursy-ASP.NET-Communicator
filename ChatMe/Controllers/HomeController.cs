@@ -1,4 +1,6 @@
-﻿using ChatMe.Models;
+﻿using ChatMe.Data;
+using ChatMe.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,16 +13,33 @@ namespace ChatMe.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ChatContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ChatContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            string tk = HttpContext.Session.GetString("SessionToken");
+
+            if (tk != null)
+            {
+                User logged = _context.User.First(user => user.token == tk);
+                if (logged != null)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Index"); // do poprawienia nie przekierowuje dobrze
+                }
+            } 
+            else
+            {
+                return RedirectToAction("Login", "Index"); // do poprawienia nie przekierowuje dobrze
+            }
         }
 
         public IActionResult Privacy()
