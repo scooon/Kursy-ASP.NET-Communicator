@@ -29,16 +29,18 @@ namespace ChatMe.Controllers
                 User logged = _context.User.First(user => user.token == tk);
                 if (logged != null)
                 {
+                    ViewBag.displayName = logged.displayName;
+                    ViewBag.userName = logged.username;
                     return View();
                 }
                 else
                 {
-                    return RedirectToAction("Login", "Index"); // do poprawienia nie przekierowuje dobrze
+                    return RedirectToAction("Index", "Login");
                 }
             } 
             else
             {
-                return RedirectToAction("Login", "Index"); // do poprawienia nie przekierowuje dobrze
+                return RedirectToAction("Index", "Login");
             }
         }
 

@@ -9,7 +9,7 @@ using ChatMe.Data;
 using ChatMe.Models;
 using System.Text;
 using Microsoft.AspNetCore.Http;
-
+// TODO: username to lowercase, register to lowercase
 namespace ChatMe.Controllers
 {
     public class LoginController : Controller
@@ -23,6 +23,20 @@ namespace ChatMe.Controllers
 
         public async Task<IActionResult> Index(object status)
         {
+            if (!String.IsNullOrEmpty(HttpContext.Request.Query["failed"])) {
+                if (Convert.ToBoolean(HttpContext.Request.Query["failed"])){
+                    ViewBag.failed = true;
+                }
+                else
+                {
+                    ViewBag.failed = false;
+                }
+            }
+            else
+            {
+                ViewBag.failed = false;
+            }
+            
             return View();
         }
 
@@ -39,6 +53,7 @@ namespace ChatMe.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index([Bind("username,password")] User loginData)
         {
+            ViewBag.failed = true;
             if (ModelState.IsValid)
             {
                 var currentLogin = _context.User.FirstOrDefault(item => item.username == loginData.username);
