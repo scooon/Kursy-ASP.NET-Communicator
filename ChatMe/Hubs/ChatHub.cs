@@ -28,11 +28,18 @@ namespace ChatMe.Hubs
             //var listOfUsers = from u in _context.User select u;
             if (!String.IsNullOrEmpty(keyword))
             {
-                //TODO: NIE WYSZUKUJE DOBRZE USERÓW LINQ
                 var listOfUsers = from user in _context.User
-                                           select new { user.ID, user.username, user.displayName, user.email, user.lastLogin };
-                //listOfUsers.Where(s => s.username.Contains(keyword));
+                                  where user.displayName.Contains(keyword) ||
+                                  user.username.Contains(keyword) ||
+                                  user.email.Contains(keyword)
+                                  orderby user.displayName
+                                  select new { user.ID, user.username, user.displayName, user.email, user.lastLogin };
                 await Clients.Caller.SendAsync("UserSearchResponse", listOfUsers);
+            }
+            else
+            {
+                var empty = new object[0];
+                await Clients.Caller.SendAsync("UserSearchResponse", empty);
             }
             
         }

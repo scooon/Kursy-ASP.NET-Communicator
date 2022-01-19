@@ -18,6 +18,21 @@ connection.on("ReceiveMessage", function (user, message) {
 
 connection.on("UserSearchResponse", function (listOfUsers) {
     console.log(listOfUsers);
+    let searchList = document.getElementById("searchList");
+    searchList.innerHTML = "";
+    console.log(listOfUsers.length);
+    if (listOfUsers.length > 0) {
+        listOfUsers.forEach(function (user) {
+            console.log(user)
+            let li = document.createElement("li");
+            li.appendChild(document.createTextNode(user.username));
+            searchList.appendChild(li);
+        });
+    } else {
+        let li = document.createElement("li");
+        li.appendChild(document.createTextNode("No users found :("));
+        searchList.appendChild(li);
+    }
 });
 
 connection.start().then(function () {
@@ -37,7 +52,7 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 });
 
 document.getElementById("userSearchButton").addEventListener("click", function (event) {
-    var keyword = document.getElementById("userInput").value;
+    var keyword = document.getElementById("userSearchInput").value;
     connection.invoke("SearchUser", keyword).catch(function (err) {
         return console.error(err.toString());
     });
