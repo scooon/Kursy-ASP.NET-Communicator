@@ -23,7 +23,7 @@ namespace ChatMe.Controllers
         public IActionResult Index()
         {
             string tk = HttpContext.Session.GetString("SessionToken");
-
+            
             if (tk != null)
             {
                 User logged = _context.User.First(user => user.token == tk);

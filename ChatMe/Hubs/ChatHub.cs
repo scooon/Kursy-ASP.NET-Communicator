@@ -1,4 +1,5 @@
 ﻿using ChatMe.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace ChatMe.Hubs
         // User search
         public async Task SearchUser(string keyword)
         {
+            // TODO: Session timout manual
             //var listOfUsers = from u in _context.User select u;
             if (!String.IsNullOrEmpty(keyword))
             {

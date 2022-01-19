@@ -25,7 +25,7 @@ connection.on("UserSearchResponse", function (listOfUsers) {
         listOfUsers.forEach(function (user) {
             console.log(user)
             let li = document.createElement("li");
-            li.appendChild(document.createTextNode(user.username));
+            li.appendChild(document.createTextNode(user.displayName + " (" + user.username + ") <" + user.email + ">"));
             searchList.appendChild(li);
         });
     } else {
@@ -51,10 +51,19 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     event.preventDefault();
 });
 
-document.getElementById("userSearchButton").addEventListener("click", function (event) {
+function searchUser() {
     var keyword = document.getElementById("userSearchInput").value;
     connection.invoke("SearchUser", keyword).catch(function (err) {
         return console.error(err.toString());
     });
+}
+
+document.getElementById("userSearchButton").addEventListener("click", function (event) {
+    searchUser();
+    event.preventDefault();
+});
+
+document.getElementById("userSearchInput").addEventListener("input", function (event) {
+    searchUser();
     event.preventDefault();
 });
