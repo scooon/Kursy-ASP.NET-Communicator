@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ChatMe.Data;
 using ChatMe.Hubs;
+using Microsoft.AspNetCore.Http;
 
 namespace ChatMe
 {
@@ -31,7 +32,7 @@ namespace ChatMe
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".ChatMe.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(30);
+                options.IdleTimeout = TimeSpan.FromHours(24);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
@@ -42,6 +43,8 @@ namespace ChatMe
                     options.UseSqlServer(Configuration.GetConnectionString("UserContext")));
 
             services.AddSignalR();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +69,8 @@ namespace ChatMe
 
             app.UseSession();
 
+            HttpHelper.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -74,5 +79,16 @@ namespace ChatMe
                 endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
+    }
+
+    public static class HttpHelper
+    {
+        private static IHttpContextAccessor _accessor;
+        public static void Configure(IHttpContextAccessor httpContextAccessor)
+        {
+            _accessor = httpContextAccessor;
+        }
+
+        public static HttpContext HttpContext => _accessor.HttpContext;
     }
 }

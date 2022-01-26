@@ -22,7 +22,7 @@ namespace ChatMe.Controllers
 
         public IActionResult Index()
         {
-            string tk = HttpContext.Session.GetString("SessionToken");
+            string tk = HttpHelper.HttpContext.Session.GetString("SessionToken");
             
             if (tk != null)
             {
@@ -47,7 +47,7 @@ namespace ChatMe.Controllers
         public IActionResult Privacy()
         {
             byte[] token;
-            HttpContext.Session.TryGetValue("SessionToken", out token);
+            HttpHelper.HttpContext.Session.TryGetValue("SessionToken", out token);
             return View();
         }
 

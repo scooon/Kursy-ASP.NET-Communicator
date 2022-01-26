@@ -68,7 +68,7 @@ namespace ChatMe.Controllers
                     currentLogin.lastLogin = DateTime.Now;
                     _context.Update(currentLogin);
                     await _context.SaveChangesAsync();
-                    HttpContext.Session.SetString("SessionToken", currentLogin.token);
+                    HttpHelper.HttpContext.Session.SetString("SessionToken", currentLogin.token);
                     
 
 

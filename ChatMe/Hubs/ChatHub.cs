@@ -1,4 +1,5 @@
-﻿using ChatMe.Data;
+﻿using ChatMe.Classes;
+using ChatMe.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -11,9 +12,11 @@ namespace ChatMe.Hubs
     public class ChatHub : Hub
     {
         private readonly ChatContext _context;
+        
 
         public ChatHub(ChatContext context)
         {
+
             _context = context;
         }
         public async Task SendMessage(string user, string message)
@@ -26,8 +29,9 @@ namespace ChatMe.Hubs
         // User search
         public async Task SearchUser(string keyword)
         {
-            // TODO: Session timout manual
-            //var listOfUsers = from u in _context.User select u;
+            
+            Session session = new Session(_context);
+            session.updateSession();
             if (!String.IsNullOrEmpty(keyword))
             {
                 var listOfUsers = from user in _context.User
