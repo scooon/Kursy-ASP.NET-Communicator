@@ -25,7 +25,12 @@ connection.on("UserSearchResponse", function (listOfUsers) {
         listOfUsers.forEach(function (user) {
             console.log(user)
             let li = document.createElement("li");
-            li.appendChild(document.createTextNode(user.displayName + " (" + user.username + ") <" + user.email + ">"));
+            let div = document.createElement("div");
+            let label = document.createTextNode(user.displayName + " (" + user.username + ") <" + user.email + ">");
+            div.onclick = "createConversation(" + user.id + ")";
+            div.setAttribute('onclick', "createConversation(" + user.id + ")");
+            div.appendChild(label);
+            li.appendChild(div);
             searchList.appendChild(li);
         });
     } else {
@@ -66,4 +71,23 @@ document.getElementById("userSearchButton").addEventListener("click", function (
 document.getElementById("userSearchInput").addEventListener("input", function (event) {
     searchUser();
     event.preventDefault();
+});
+
+// Create conversation
+
+function createConversation(userID) {
+    connection.invoke("CreateConversation", userID).catch(function (err) {
+        return console.error(err.toString());
+    });
+}
+
+connection.on("SwitchToConversation", function (conversationID) {
+    let searchParams;
+    if ('URLSearchParams' in window) {
+        searchParams = new URLSearchParams(window.location.search);
+    } else {
+        searchParams = new URLSearchParams();
+    }
+    searchParams.set("conversation", conversationID);
+    window.location.search = searchParams.toString();
 });

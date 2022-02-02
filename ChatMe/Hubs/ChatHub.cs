@@ -1,5 +1,6 @@
 ﻿using ChatMe.Classes;
 using ChatMe.Data;
+using ChatMe.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -49,5 +50,42 @@ namespace ChatMe.Hubs
             }
             
         }
+
+        public async Task CreateConversation(int id)
+        {
+            Session session = new Session(_context);
+            session.updateSession();
+
+            if (id != -1)
+            {
+                string tk = HttpHelper.HttpContext.Session.GetString("SessionToken");
+
+                if (tk != null)
+                {
+                    User logged = _context.User.First(user => user.token == tk);
+                    List<UserID> members = new List<UserID>();
+                    UserID currentUser = new UserID();
+                    currentUser.userID = logged.ID;
+                    UserID nextUser = new UserID();
+                    nextUser.userID = id;
+                    members.Add(currentUser);
+                    members.Add(nextUser);
+                    if (logged != null)
+                    {
+                        Chat currentConversation = new Chat();
+                        currentConversation.isGroupMessage = false;
+                        currentConversation.usersIDs = members;
+                        _context.Chats.Add(currentConversation);
+                        await _context.SaveChangesAsync();
+                        await Clients.Caller.SendAsync("SwitchToConversation", id);
+                    }
+                }
+
+                    
+            }
+
+            
+        }
+
     }
 }
