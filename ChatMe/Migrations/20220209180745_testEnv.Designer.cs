@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChatMe.Migrations
 {
     [DbContext(typeof(ChatContext))]
-    [Migration("20211110185009_InitialCreate0")]
-    partial class InitialCreate0
+    [Migration("20220209180745_testEnv")]
+    partial class testEnv
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,6 +39,9 @@ namespace ChatMe.Migrations
 
                     b.Property<DateTime>("lastMessageTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("usersIDs")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("chatID");
 
@@ -149,38 +152,11 @@ namespace ChatMe.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("ChatMe.Models.UserID", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("chatID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("userID")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("chatID");
-
-                    b.ToTable("UserID");
-                });
-
             modelBuilder.Entity("ChatMe.Models.Readed", b =>
                 {
                     b.HasOne("ChatMe.Models.Message", null)
                         .WithMany("readedBy")
                         .HasForeignKey("messageID");
-                });
-
-            modelBuilder.Entity("ChatMe.Models.UserID", b =>
-                {
-                    b.HasOne("ChatMe.Models.Chat", null)
-                        .WithMany("usersIDs")
-                        .HasForeignKey("chatID");
                 });
 #pragma warning restore 612, 618
         }

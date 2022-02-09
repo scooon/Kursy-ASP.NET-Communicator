@@ -3,6 +3,7 @@ using ChatMe.Data;
 using ChatMe.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,21 +64,34 @@ namespace ChatMe.Hubs
                 if (tk != null)
                 {
                     User logged = _context.User.First(user => user.token == tk);
-                    List<UserID> members = new List<UserID>();
-                    UserID currentUser = new UserID();
-                    currentUser.userID = logged.ID;
-                    UserID nextUser = new UserID();
-                    nextUser.userID = id;
-                    members.Add(currentUser);
-                    members.Add(nextUser);
+                    
                     if (logged != null)
                     {
+                        List<int> members = new List<int>();
+                        members.Add(logged.ID);
+                        members.Add(id);
                         Chat currentConversation = new Chat();
-                        currentConversation.isGroupMessage = false;
-                        currentConversation.usersIDs = members;
-                        _context.Chats.Add(currentConversation);
-                        await _context.SaveChangesAsync();
-                        await Clients.Caller.SendAsync("SwitchToConversation", id);
+                        currentConversation.usersIDs = JsonConvert.SerializeObject(members);
+                        Chat dbChat;
+                        // TODO: Sprawdzić czy nie dodajemy do konwersacji dwa razy tego samego usera
+                        // TODO: Updatować ostatnią aktywność użytkownika
+                        if (_context.Chats.Any(chat => chat.usersIDs == currentConversation.usersIDs))
+                        {
+                            dbChat = _context.Chats.First(chat => chat.usersIDs == currentConversation.usersIDs);
+                            dbChat.lastMessageTime = DateTime.Now;
+                            _context.Update(dbChat);
+                            await _context.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            currentConversation.isGroupMessage = false;
+                            currentConversation.lastMessageTime = DateTime.Now;
+                            _context.Chats.Add(currentConversation);
+                            await _context.SaveChangesAsync();
+                            dbChat = _context.Chats.First(chat => chat.usersIDs == currentConversation.usersIDs);
+
+                        }
+                        await Clients.Caller.SendAsync("SwitchToConversation", dbChat.chatID);
                     }
                 }
 

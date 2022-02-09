@@ -3,15 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ChatMe.Migrations
 {
-    public partial class InitialCreate0 : Migration
+    public partial class testEnv : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "id",
-                table: "User",
-                newName: "ID");
-
             migrationBuilder.CreateTable(
                 name: "Chats",
                 columns: table => new
@@ -19,6 +14,7 @@ namespace ChatMe.Migrations
                     chatID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     isGroupMessage = table.Column<bool>(nullable: false),
+                    usersIDs = table.Column<string>(nullable: true),
                     chatName = table.Column<string>(nullable: true),
                     chatColor = table.Column<string>(nullable: true),
                     lastMessageTime = table.Column<DateTime>(nullable: false)
@@ -59,23 +55,24 @@ namespace ChatMe.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserID",
+                name: "User",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    userID = table.Column<int>(nullable: false),
-                    chatID = table.Column<int>(nullable: true)
+                    username = table.Column<string>(nullable: true),
+                    email = table.Column<string>(nullable: true),
+                    displayName = table.Column<string>(nullable: true),
+                    token = table.Column<string>(nullable: true),
+                    expire = table.Column<DateTime>(nullable: false),
+                    about = table.Column<string>(nullable: true),
+                    password = table.Column<string>(nullable: true),
+                    lastLogin = table.Column<DateTime>(nullable: false),
+                    created = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserID", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_UserID_Chats_chatID",
-                        column: x => x.chatID,
-                        principalTable: "Chats",
-                        principalColumn: "chatID",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_User", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -103,15 +100,13 @@ namespace ChatMe.Migrations
                 name: "IX_Readed_messageID",
                 table: "Readed",
                 column: "messageID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserID_chatID",
-                table: "UserID",
-                column: "chatID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Chats");
+
             migrationBuilder.DropTable(
                 name: "Readed");
 
@@ -119,18 +114,10 @@ namespace ChatMe.Migrations
                 name: "Settings");
 
             migrationBuilder.DropTable(
-                name: "UserID");
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Messages");
-
-            migrationBuilder.DropTable(
-                name: "Chats");
-
-            migrationBuilder.RenameColumn(
-                name: "ID",
-                table: "User",
-                newName: "id");
         }
     }
 }

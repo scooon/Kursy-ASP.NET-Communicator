@@ -9,7 +9,7 @@ namespace ChatMe.Models
     {
         public int chatID { get; set; }
         public bool isGroupMessage { get; set; }
-        public List<UserID> usersIDs { get; set; }
+        public string usersIDs { get; set; }
         public string chatName { get; set; }
         
         public string chatColor { get; set; }
