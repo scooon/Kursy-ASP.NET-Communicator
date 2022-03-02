@@ -14,24 +14,56 @@ namespace ChatMe.Hubs
     public class ChatHub : Hub
     {
         private readonly ChatContext _context;
-        
+
 
         public ChatHub(ChatContext context)
         {
 
             _context = context;
         }
-        public async Task SendMessage(string user, string message)
+        public async Task SendMessage(int conversationID, string user, string message)
         {
-            Console.WriteLine(user + ": " + message);
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
+            Session session = new Session(_context);
+            session.updateSession();
+
+            string tk = HttpHelper.HttpContext.Session.GetString("SessionToken");
+
+            if (tk != null)
+            {
+                User logged = _context.User.First(user => user.token == tk);
+
+                if (logged != null)
+                {
+                    if (_context.Chats.Any(chat => chat.chatID == conversationID))
+                    {
+                        Chat currentConversation = _context.Chats.First(chat => chat.chatID == conversationID);
+                        List<int> members = JsonConvert.DeserializeObject<List<int>>(currentConversation.usersIDs);
+                        if (members.Contains(logged.ID))
+                        {
+                            Message newMessage = new Message();
+                            newMessage.chatID = currentConversation.chatID;
+                            newMessage.createdTime = DateTime.Now;
+                            newMessage.creatorID = logged.ID;
+                            newMessage.messageContent = message;
+                            currentConversation.lastMessageTime = newMessage.createdTime;
+                            _context.Chats.Update(currentConversation);
+                            _context.Messages.Add(newMessage);
+                            await _context.SaveChangesAsync();
+                            Console.WriteLine(user + ": " + message);
+                            await Clients.All.SendAsync("ReceiveMessage", logged.ID, message);
+                        }
+                    }
+                }
+            }
+
+            
             //Zrobić żeby do konkretnego usera były wysyłane wiadomości;
         }
 
         // User search
         public async Task SearchUser(string keyword)
         {
-            
+
             Session session = new Session(_context);
             session.updateSession();
             if (!String.IsNullOrEmpty(keyword))
@@ -49,32 +81,40 @@ namespace ChatMe.Hubs
                 var empty = new object[0];
                 await Clients.Caller.SendAsync("UserSearchResponse", empty);
             }
-            
-        }
 
-        public async Task CreateConversation(int id)
+        }
+        public async Task CreateConversation(string membersJson)
+        {
+            if (membersJson != "")
+            {
+                List<int> members = new List<int>();
+                members = JsonConvert.DeserializeObject<List<int>>(membersJson);
+                await CreateConversationFromList(members);
+            }
+        }
+        private async Task CreateConversationFromList(List<int> members)
         {
             Session session = new Session(_context);
             session.updateSession();
 
-            if (id != -1)
+            if (members.Count > 0)
             {
                 string tk = HttpHelper.HttpContext.Session.GetString("SessionToken");
 
                 if (tk != null)
                 {
                     User logged = _context.User.First(user => user.token == tk);
-                    
+
                     if (logged != null)
                     {
-                        List<int> members = new List<int>();
+
                         members.Add(logged.ID);
-                        members.Add(id);
+                        members = members.Distinct().ToList();
+                        members.Sort();
                         Chat currentConversation = new Chat();
                         currentConversation.usersIDs = JsonConvert.SerializeObject(members);
                         Chat dbChat;
-                        // TODO: Sprawdzić czy nie dodajemy do konwersacji dwa razy tego samego usera
-                        // TODO: Updatować ostatnią aktywność użytkownika
+
                         if (_context.Chats.Any(chat => chat.usersIDs == currentConversation.usersIDs))
                         {
                             dbChat = _context.Chats.First(chat => chat.usersIDs == currentConversation.usersIDs);
@@ -84,7 +124,14 @@ namespace ChatMe.Hubs
                         }
                         else
                         {
-                            currentConversation.isGroupMessage = false;
+                            if (members.Count > 2)
+                            {
+                                currentConversation.isGroupMessage = true;
+                            }
+                            else
+                            {
+                                currentConversation.isGroupMessage = false;
+                            }
                             currentConversation.lastMessageTime = DateTime.Now;
                             _context.Chats.Add(currentConversation);
                             await _context.SaveChangesAsync();
@@ -95,10 +142,10 @@ namespace ChatMe.Hubs
                     }
                 }
 
-                    
+
             }
 
-            
+
         }
 
     }

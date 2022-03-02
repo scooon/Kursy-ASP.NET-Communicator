@@ -50,10 +50,16 @@ connection.start().then(function () {
 document.getElementById("sendButton").addEventListener("click", function (event) {
     var user = document.getElementById("userInput").value;
     var message = document.getElementById("messageInput").value;
-    connection.invoke("SendMessage", user, message).catch(function (err) {
-        return console.error(err.toString());
-    });
-    event.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    var conversationID = parseInt(urlParams.get('conversation'));
+    console.log(conversationID);
+    if (Number.isInteger(conversationID)) {
+        console.log(conversationID);
+        connection.invoke("SendMessage", conversationID, user, message).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();
+    }
 });
 
 function searchUser() {
@@ -76,7 +82,10 @@ document.getElementById("userSearchInput").addEventListener("input", function (e
 // Create conversation
 
 function createConversation(userID) {
-    connection.invoke("CreateConversation", userID).catch(function (err) {
+    let members = new Array();
+    members.push(userID);
+    console.log(JSON.stringify(members));
+    connection.invoke("CreateConversation", JSON.stringify(members)).catch(function (err) {
         return console.error(err.toString());
     });
 }
