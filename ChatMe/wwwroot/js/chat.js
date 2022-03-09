@@ -7,6 +7,11 @@ document.getElementById("sendButton").disabled = true;
 
 document.getElementById("userSearchButton").disabled = true;
 
+connection.on("testAlert", function (message) {
+    console.log(message);
+});
+
+
 connection.on("ReceiveMessage", function (user, message) {
     var li = document.createElement("li");
     document.getElementById("messagesList").appendChild(li);
@@ -67,6 +72,7 @@ function searchUser() {
     connection.invoke("SearchUser", keyword).catch(function (err) {
         return console.error(err.toString());
     });
+    console.log($.connection.hub.id);
 }
 
 document.getElementById("userSearchButton").addEventListener("click", function (event) {

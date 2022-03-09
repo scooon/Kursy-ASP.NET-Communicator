@@ -20,6 +20,7 @@ namespace ChatMe.Hubs
         {
 
             _context = context;
+
         }
         public async Task SendMessage(int conversationID, string user, string message)
         {
@@ -49,14 +50,17 @@ namespace ChatMe.Hubs
                             _context.Chats.Update(currentConversation);
                             _context.Messages.Add(newMessage);
                             await _context.SaveChangesAsync();
-                            Console.WriteLine(user + ": " + message);
-                            await Clients.All.SendAsync("ReceiveMessage", logged.ID, message);
+                            foreach(int convUser in members)
+                            {
+                                BroadcastToGroup(convUser);
+                            }
+                            
                         }
                     }
                 }
             }
 
-            
+
             //Zrobić żeby do konkretnego usera były wysyłane wiadomości;
         }
 
@@ -147,6 +151,50 @@ namespace ChatMe.Hubs
 
 
         }
+
+
+
+        public async Task AddToGroup(string groupName)
+        => await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+
+        public async Task RemoveFromGroup(string groupName)
+        => await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
+
+        public async Task BroadcastToGroup(int groupName)
+        => await Clients.Group(groupName.ToString()).SendAsync("testAlert", $"{Context.ConnectionId} has joined the group {groupName}.");
+
+
+        public async override Task OnConnectedAsync()
+        {
+            string tk = HttpHelper.HttpContext.Session.GetString("SessionToken");
+
+            if (tk != null)
+            {
+                User logged = _context.User.First(user => user.token == tk);
+
+                if (logged != null)
+                {
+                   await AddToGroup(logged.ID.ToString());
+                }
+            }
+            await base.OnConnectedAsync();
+        }
+        public async override Task OnDisconnectedAsync(Exception exception)
+        {
+            string tk = HttpHelper.HttpContext.Session.GetString("SessionToken");
+
+            if (tk != null)
+            {
+                User logged = _context.User.First(user => user.token == tk);
+
+                if (logged != null)
+                {
+                    await RemoveFromGroup(logged.ID.ToString());
+                }
+            }
+            await base.OnDisconnectedAsync(exception);
+        }
+
 
     }
 }

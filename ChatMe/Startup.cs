@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using ChatMe.Data;
 using ChatMe.Hubs;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
 
 namespace ChatMe
 {
