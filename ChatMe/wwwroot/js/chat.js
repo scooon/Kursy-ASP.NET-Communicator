@@ -7,8 +7,15 @@ document.getElementById("sendButton").disabled = true;
 
 document.getElementById("userSearchButton").disabled = true;
 
-connection.on("testAlert", function (message) {
-    console.log(message);
+connection.on("newMessage", function (message) {
+    let newMessage = JSON.parse(message);
+    console.log(newMessage);
+    var dt = new Date(newMessage.createdTime);
+    console.log(dt.getFullYear());
+    // Temp visualisation
+    var li = document.createElement("li");
+    document.getElementById("messagesList").appendChild(li);
+    li.textContent = `${newMessage.displayName}: ${newMessage.messageContent} | ${dt.getHours()}:${dt.getMinutes()}`
 });
 
 
@@ -106,3 +113,4 @@ connection.on("SwitchToConversation", function (conversationID) {
     searchParams.set("conversation", conversationID);
     window.location.search = searchParams.toString();
 });
+

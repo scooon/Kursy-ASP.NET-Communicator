@@ -50,9 +50,11 @@ namespace ChatMe.Hubs
                             _context.Chats.Update(currentConversation);
                             _context.Messages.Add(newMessage);
                             await _context.SaveChangesAsync();
+                            object messageInfo = new { newMessage.chatID, newMessage.createdTime, newMessage.creatorID, logged.displayName, logged.username, newMessage.messageContent, newMessage.messageID, newMessage.readedBy};
+                            string messageJson = JsonConvert.SerializeObject(messageInfo);
                             foreach(int convUser in members)
                             {
-                                BroadcastToGroup(convUser);
+                                BroadcastToGroup(convUser, messageJson);
                             }
                             
                         }
@@ -160,8 +162,8 @@ namespace ChatMe.Hubs
         public async Task RemoveFromGroup(string groupName)
         => await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
 
-        public async Task BroadcastToGroup(int groupName)
-        => await Clients.Group(groupName.ToString()).SendAsync("testAlert", $"{Context.ConnectionId} has joined the group {groupName}.");
+        public async Task BroadcastToGroup(int groupName, string messageJson)
+        => await Clients.Group(groupName.ToString()).SendAsync("newMessage", messageJson);
 
 
         public async override Task OnConnectedAsync()
