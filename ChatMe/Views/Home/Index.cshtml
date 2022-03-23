@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<ChatMe.Models.FrontMessage>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -36,7 +38,18 @@
 </div>
 <div class="row">
     <div class="col-6">
-        <ul id="messagesList"></ul>
+        <ul id="messagesList">
+            @foreach (var item in Model)
+            {
+                <li>
+                    @Html.DisplayFor(modelItem => item.messageID)
+                    @Html.DisplayFor(modelItem => item.username)
+                    @Html.DisplayFor(modelItem => item.creatorName)
+                    @Html.DisplayFor(modelItem => item.messageContent)
+                    @Html.DisplayFor(modelItem => item.createdTime)
+                </li>
+            }
+        </ul>
     </div>
 </div>
 <div class="row">
