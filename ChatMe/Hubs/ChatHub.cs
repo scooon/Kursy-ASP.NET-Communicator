@@ -22,7 +22,7 @@ namespace ChatMe.Hubs
             _context = context;
 
         }
-        public async Task SendMessage(int conversationID, string user, string message)
+        public async Task SendMessage(int conversationID, string message)
         {
             Session session = new Session(_context);
             session.updateSession();
@@ -63,7 +63,6 @@ namespace ChatMe.Hubs
             }
 
 
-            //Zrobić żeby do konkretnego usera były wysyłane wiadomości;
         }
 
         // User search

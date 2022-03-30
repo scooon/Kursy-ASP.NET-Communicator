@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -49,12 +50,14 @@ namespace ChatMe.Controllers
                                           where message.chatID == convId
                                           orderby message.createdTime
                                           select new FrontMessage(_context.User.FirstOrDefault(m => m.ID == message.creatorID).displayName, _context.User.FirstOrDefault(m => m.ID == message.creatorID).username, message.messageID, message.createdTime, message.messageContent, message.readedBy);
+                        listOfMessages = listOfMessages.Take(10); //.Skip(50)
                     }
-                    // TODO: DODAĆ USERNAME PODCZAS WYSYŁANIA WIADOMOŚCI PRZEZ JS
-                    // TODO: Limit wiadomości
-                    ViewBag.displayName = logged.displayName;
-                    ViewBag.userName = logged.username;
-                    return View(listOfMessages);
+                    // TODO: Segreguje wiadomości od najstarszych ukrywa najnowsze!!!
+                    dynamic mymodel = new ExpandoObject();
+                    mymodel.currentUserData = new CurrentUserData(logged);
+                    mymodel.listOfMessages = listOfMessages;
+                    mymodel.listOfConversations = getChats(logged, convId);
+                    return View(mymodel);
                 }
                 else
                 {
@@ -64,6 +67,22 @@ namespace ChatMe.Controllers
             else
             {
                 return RedirectToAction("Index", "Login");
+            }
+        }
+
+        private IEnumerable<Chat> getChats(User logged, int currentChat)
+        {
+            IQueryable<ChatMe.Models.Chat> listOfConversations;
+            if (true)
+            {
+                listOfConversations = from chat in _context.Chats
+                                      orderby chat.lastMessageTime
+                                      select chat; //where chat.chatID == currentChat
+                listOfConversations = listOfConversations.Take(10); //.Skip(50)
+                return listOfConversations;
+                // TODO: Listowanie konwersacji użytkownika
+                // TODO: Customowy obiekt konwersacji na froncie
+                // TODO: Wyświetlanie konwersacji w Home View na dynamic model
             }
         }
 
