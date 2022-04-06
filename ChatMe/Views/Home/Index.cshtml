@@ -55,13 +55,13 @@
 <div class="row">
     <div class="col-6">
         <ul id="chatsList">
-            @foreach (Chat item in Model.listOfConversations)
+            @foreach (FrontChatItem item in Model.listOfConversations)
             {
                 <li>
                     @Html.DisplayFor(modelItem => item.chatName)
                     @Html.DisplayFor(modelItem => item.chatID)
                     @Html.DisplayFor(modelItem => item.lastMessageTime)
-                    @Html.DisplayFor(modelItem => item.usersIDs)
+                    @Html.DisplayFor(modelItem => item.userIDs)
                 </li>
             }
         </ul>

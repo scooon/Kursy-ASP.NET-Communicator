@@ -4,6 +4,7 @@ using ChatMe.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -43,16 +44,17 @@ namespace ChatMe.Controllers
                     {
 
                     }
-                    IQueryable<ChatMe.Models.FrontMessage> listOfMessages;
+                    IEnumerable<FrontMessage> listOfMessages;
                     if (true)
                     {
-                        listOfMessages = from message in _context.Messages
+                        IQueryable<FrontMessage> listOfMessagesQuery = from message in _context.Messages
                                           where message.chatID == convId
                                           orderby message.createdTime
                                           select new FrontMessage(_context.User.FirstOrDefault(m => m.ID == message.creatorID).displayName, _context.User.FirstOrDefault(m => m.ID == message.creatorID).username, message.messageID, message.createdTime, message.messageContent, message.readedBy);
-                        listOfMessages = listOfMessages.Take(10); //.Skip(50)
+                        listOfMessages = listOfMessagesQuery.Take(20); //.Skip(50)
+                        listOfMessages = listOfMessages.OrderBy(message => message.createdTime);
                     }
-                    // TODO: Segreguje wiadomości od najstarszych ukrywa najnowsze!!!
+                    
                     dynamic mymodel = new ExpandoObject();
                     mymodel.currentUserData = new CurrentUserData(logged);
                     mymodel.listOfMessages = listOfMessages;
@@ -70,15 +72,16 @@ namespace ChatMe.Controllers
             }
         }
 
-        private IEnumerable<Chat> getChats(User logged, int currentChat)
+        private IEnumerable<FrontChatItem> getChats(User logged, int currentChat)
         {
-            IQueryable<ChatMe.Models.Chat> listOfConversations;
+            IQueryable<ChatMe.Models.FrontChatItem> listOfConversations;
             if (true)
             {
                 listOfConversations = from chat in _context.Chats
+                                      where chat.usersIDs.Contains("["+logged.ID+",") || chat.usersIDs.Contains("," + logged.ID + ",") || chat.usersIDs.Contains("," + logged.ID + "]") || chat.usersIDs.Contains("[" + logged.ID + "]")
                                       orderby chat.lastMessageTime
-                                      select chat; //where chat.chatID == currentChat
-                listOfConversations = listOfConversations.Take(10); //.Skip(50)
+                                      select new FrontChatItem(chat, logged, _context); //where chat.chatID == currentChat
+                listOfConversations = listOfConversations.Take(20); //.Skip(50)
                 return listOfConversations;
                 // TODO: Listowanie konwersacji użytkownika
                 // TODO: Customowy obiekt konwersacji na froncie
