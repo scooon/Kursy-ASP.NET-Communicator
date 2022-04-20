@@ -19,35 +19,40 @@ namespace ChatMe.Models
             else
             {
                 List<int> members = JsonConvert.DeserializeObject<List<int>>(chat.usersIDs);
+                users = new List<MemberUser>(); 
                 members.Remove(logged.ID);
                 foreach(int user in members)
                 {
-                    // TODO: Przeczyścić bazę z wiadomości i Chatów z NULLEM!!!
-                    if(String.IsNullOrEmpty(_context.User.FirstOrDefault(usr => usr.ID == user).displayName))
-                    {
-                        chatName = chatName + _context.User.FirstOrDefault(usr => usr.ID == user).username;
-                    }
-                    else
-                    {
-                        chatName = chatName + _context.User.FirstOrDefault(usr => usr.ID == user).displayName;
-                    }
-                    
-                    if(members.Count > 1)
-                    {
-                        chatName += ", ";
+                    if (_context.User.FirstOrDefault(usr => usr.ID == user) != null){
+                        users.Add(new MemberUser(_context.User.FirstOrDefault(usr => usr.ID == user)));
+                        if (String.IsNullOrEmpty(_context.User.FirstOrDefault(usr => usr.ID == user).displayName))
+                        {
+                            chatName = chatName + _context.User.FirstOrDefault(usr => usr.ID == user).username;
+                        }
+                        else
+                        {
+                            chatName = chatName + _context.User.FirstOrDefault(usr => usr.ID == user).displayName;
+                        }
+
+                        if (members.Count > 1)
+                        {
+                            chatName += ", ";
+                        }
                     }
                 }
-                // TODO: Zbudować konstruktor, który będzie zawierał pełne info o usernameach użytkowników i displaynameach. Jeżeli displayname jest pusty, użyj username
+
             }
             chatID = chat.chatID;
             lastMessageTime = chat.lastMessageTime;
-            userIDs = chat.usersIDs;
-            // TODO: Dodać kolor czatu i inne elementy
+            
+            chatColor = chat.chatColor;
+            isGroupMessage = chat.isGroupMessage;
         }
         public int chatID { get; set; }
         public string chatName { get; set; }
         public DateTime lastMessageTime { get; set; }
-        public string userIDs { get; set; } // TODO: Zrobić obiekt memberów: id, displayName, userName
-
+        public List<MemberUser> users { get; set; } // TODO: Zrobić obiekt memberów: id, displayName, userName
+        public string chatColor { get; set; }
+        public bool isGroupMessage { get; set; }
     }
 }

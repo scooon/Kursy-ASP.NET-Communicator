@@ -83,7 +83,7 @@ namespace ChatMe.Controllers
                                       select new FrontChatItem(chat, logged, _context); //where chat.chatID == currentChat
                 listOfConversations = listOfConversations.Take(20); //.Skip(50)
                 return listOfConversations;
-                // TODO: Listowanie konwersacji użytkownika
+
                 // TODO: Customowy obiekt konwersacji na froncie
                 // TODO: Wyświetlanie konwersacji w Home View na dynamic model
             }

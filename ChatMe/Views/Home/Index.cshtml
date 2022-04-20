@@ -10,16 +10,7 @@
 <div class="container">
     <h1>Witaj @user.displayName!</h1>
     <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-2">Message</div>
-        <div class="col-4"><input type="text" id="messageInput" /></div>
-    </div>
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-6">
-            <input type="button" id="sendButton" value="Send Message" />
-        </div>
-    </div>
+    
     <div class="row">
         <div class="col-2">Search users</div>
         <div class="col-4"><input type="text" id="userSearchInput" /></div>
@@ -37,34 +28,34 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-6">
-        <ul id="messagesList">
-            @foreach (FrontMessage item in Model.listOfMessages)
-            {
-                <li>
-                    @Html.DisplayFor(modelItem => item.messageID)
-                    @Html.DisplayFor(modelItem => item.username)
-                    @Html.DisplayFor(modelItem => item.creatorName)
-                    @Html.DisplayFor(modelItem => item.messageContent)
-                    @Html.DisplayFor(modelItem => item.createdTime)
-                </li>
-            }
-        </ul>
-    </div>
-</div>
-<div class="row">
-    <div class="col-6">
+    <div class="col-3">
         <ul id="chatsList">
             @foreach (FrontChatItem item in Model.listOfConversations)
             {
                 <li>
-                    @Html.DisplayFor(modelItem => item.chatName)
-                    @Html.DisplayFor(modelItem => item.chatID)
-                    @Html.DisplayFor(modelItem => item.lastMessageTime)
-                    @Html.DisplayFor(modelItem => item.userIDs)
+                    <a href="?conversation=@Html.DisplayFor(modelItem => item.chatID)">
+                        @Html.DisplayFor(modelItem => item.chatName) |
+                        @Html.DisplayFor(modelItem => item.lastMessageTime)
+                    </a>
                 </li>
             }
         </ul>
+    </div>
+    <div class="col-9">
+        <ul id="messagesList">
+            @foreach (FrontMessage item in Model.listOfMessages)
+            {
+                <li>
+                    @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username)):
+                    @Html.DisplayFor(modelItem => item.messageContent) |
+                    @Html.DisplayFor(modelItem => item.createdTime)
+                </li>
+            }
+        </ul>
+        <div class="messageInputBar">
+            <input type="text" id="messageInput" />
+            <input type="button" id="sendButton" value="Send Message" />
+        </div>
     </div>
 </div>
 <div class="row">

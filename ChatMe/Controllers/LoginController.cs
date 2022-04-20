@@ -9,7 +9,6 @@ using ChatMe.Data;
 using ChatMe.Models;
 using System.Text;
 using Microsoft.AspNetCore.Http;
-// TODO: username to lowercase, register to lowercase
 namespace ChatMe.Controllers
 {
     public class LoginController : Controller
@@ -56,7 +55,7 @@ namespace ChatMe.Controllers
             ViewBag.failed = true;
             if (ModelState.IsValid)
             {
-                var currentLogin = _context.User.FirstOrDefault(item => item.username == loginData.username);
+                var currentLogin = _context.User.FirstOrDefault(item => item.username.ToLower() == loginData.username.ToLower());
                 if (currentLogin == null)
                 {
                     return RedirectToAction(nameof(Index), new { failed = true });
