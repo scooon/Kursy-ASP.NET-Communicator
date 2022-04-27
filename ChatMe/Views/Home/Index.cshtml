@@ -10,7 +10,7 @@
 <div class="container">
     <h1>Witaj @user.displayName!</h1>
     <div class="row">&nbsp;</div>
-    
+
     <div class="row">
         <div class="col-2">Search users</div>
         <div class="col-4"><input type="text" id="userSearchInput" /></div>
@@ -46,9 +46,36 @@
             @foreach (FrontMessage item in Model.listOfMessages)
             {
                 <li>
-                    @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username)):
-                    @Html.DisplayFor(modelItem => item.messageContent) |
-                    @Html.DisplayFor(modelItem => item.createdTime)
+                    @if (item.isMyMessage)
+                    {
+                        <div class="message-bubble my-message">
+                            <div class="message-bubble-author">
+                                @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username)):
+                            </div>
+                            <div class="message-bubble-content">
+                                @Html.DisplayFor(modelItem => item.messageContent)
+                            </div>
+                            <div class="message-bubble-createdTime">
+                                @Html.DisplayFor(modelItem => item.createdTime)
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="message-bubble">
+                            <div class="message-bubble-author">
+                                @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username)):
+                            </div>
+                            <div class="message-bubble-content">
+                                @Html.DisplayFor(modelItem => item.messageContent)
+                            </div>
+                            <div class="message-bubble-createdTime">
+                                @Html.DisplayFor(modelItem => item.createdTime)
+                            </div>
+                        </div>
+                    }
+
+
                 </li>
             }
         </ul>

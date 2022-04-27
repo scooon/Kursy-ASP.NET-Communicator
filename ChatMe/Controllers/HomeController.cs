@@ -50,7 +50,7 @@ namespace ChatMe.Controllers
                         IQueryable<FrontMessage> listOfMessagesQuery = from message in _context.Messages
                                           where message.chatID == convId
                                           orderby message.createdTime
-                                          select new FrontMessage(_context.User.FirstOrDefault(m => m.ID == message.creatorID).displayName, _context.User.FirstOrDefault(m => m.ID == message.creatorID).username, message.messageID, message.createdTime, message.messageContent, message.readedBy);
+                                          select new FrontMessage(_context.User.FirstOrDefault(m => m.ID == message.creatorID).displayName, _context.User.FirstOrDefault(m => m.ID == message.creatorID).username, message.messageID, message.createdTime, message.messageContent, message.readedBy, isMyMessage(message.creatorID, logged.ID));
                         listOfMessages = listOfMessagesQuery.Take(20); //.Skip(50)
                         listOfMessages = listOfMessages.OrderBy(message => message.createdTime);
                     }
@@ -69,6 +69,19 @@ namespace ChatMe.Controllers
             else
             {
                 return RedirectToAction("Index", "Login");
+            }
+        }
+
+        private static bool isMyMessage(int creatorID, int loggedID)
+        {
+            if (creatorID == loggedID)
+            {
+                return true;
+            }
+            else
+
+            {
+                return false;
             }
         }
 

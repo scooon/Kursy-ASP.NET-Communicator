@@ -7,7 +7,7 @@ namespace ChatMe.Models
 {
     public class FrontMessage
     {
-        public FrontMessage(string _creatorName, string _username, int _messageID, DateTime _createdTime, string _messageContent, List<Readed> _readedBy)
+        public FrontMessage(string _creatorName, string _username, int _messageID, DateTime _createdTime, string _messageContent, List<Readed> _readedBy, bool _isMyMessage)
         {
             creatorName = _creatorName;
             messageID = _messageID;
@@ -15,6 +15,7 @@ namespace ChatMe.Models
             messageContent = _messageContent;
             readedBy = _readedBy;
             username = _username;
+            isMyMessage = _isMyMessage;
         }
         public int messageID { get; set; }
         public int chatID { get; set; }
@@ -23,5 +24,6 @@ namespace ChatMe.Models
         public string messageContent { get; set; }
         public DateTime createdTime { get; set; }
         public List<Readed> readedBy { get; set; }
+        public bool isMyMessage { get; set; }
     }
 }
