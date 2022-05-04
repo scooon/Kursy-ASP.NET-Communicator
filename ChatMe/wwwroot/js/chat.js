@@ -15,7 +15,30 @@ connection.on("newMessage", function (message) {
     // Temp visualisation
     var li = document.createElement("li");
     document.getElementById("messagesList").appendChild(li);
-    li.textContent = `${newMessage.displayName}: ${newMessage.messageContent} | ${dt.getHours()}:${dt.getMinutes()}`
+    //li.textContent = `${newMessage.displayName}: ${newMessage.messageContent} | ${dt.getHours()}:${dt.getMinutes()}`
+
+    if (newMessage.creatorID == myID) {
+        console.log("moja");
+        li.innerHTML = `<li><div class="message-bubble my-message"><div class="message-bubble-author">${newMessage.displayName} (${newMessage.username})</div>
+              <div class="message-bubble-content">
+                                ${newMessage.messageContent}
+              </div>
+              <div class="message-bubble-createdTime">
+                                ${dt.getHours()}:${dt.getMinutes()}
+              </div>
+            </div></li>`;
+    }
+    else {
+        li.innerHTML = `<li><div class="message-bubble"><div class="message-bubble-author">${newMessage.displayName} (${newMessage.username})</div>
+              <div class="message-bubble-content">
+                                ${newMessage.messageContent}
+              </div>
+              <div class="message-bubble-createdTime">
+                                ${dt.getHours()}:${dt.getMinutes()}
+              </div>
+            </div></li>`;
+    }
+
 });
 
 
@@ -51,7 +74,7 @@ connection.start().then(function () {
 });
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
-    
+
     var message = document.getElementById("messageInput").value;
     const urlParams = new URLSearchParams(window.location.search);
     var conversationID = parseInt(urlParams.get('conversation'));

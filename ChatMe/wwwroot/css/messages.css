@@ -14,22 +14,44 @@
     float: left;
     background-color: rgba(0,255,200,1);
     padding: 10px 15px;
-    border-radius: 10px;
+    border-radius: 0.25rem;
     background-color: rgba(255,255,255,0.95);
+}
+
+.message-bubble:hover > .message-bubble-author{
+    display: block;
+}
+
+.message-bubble:hover > .message-bubble-createdTime {
+    display: block;
 }
 
 .message-bubble-author {
     display: none;
+    font-weight: 700;
+    font-size: 0.8em;
 }
 
 .message-bubble-content {
+    text-align:justify;
 }
 
 .message-bubble-createdTime {
     display: none;
+    font-size: 0.7em;
+    color: rgba(30,30,30,0.5);
+    text-align: right;
+    margin-top: 3px;
 }
 
 .my-message {
     float: right;
     background-color: rgba(0,255,200,1);
+}
+
+#sendButton:hover {
+    background-color: rgba(0,255,200,1);
+}
+
+.messageInputBar {
 }

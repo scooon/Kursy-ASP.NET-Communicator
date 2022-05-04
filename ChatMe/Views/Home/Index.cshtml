@@ -5,7 +5,7 @@
     CurrentUserData user = Model.currentUserData as CurrentUserData;
 }
 
-
+<script>let myID = @user.myID;</script>
 
 <div class="container">
     <h1>Witaj @user.displayName!</h1>
@@ -41,7 +41,7 @@
             }
         </ul>
     </div>
-    <div class="col-9">
+    <div class="col-9 chatWindow">
         <ul id="messagesList">
             @foreach (FrontMessage item in Model.listOfMessages)
             {
@@ -50,7 +50,7 @@
                     {
                         <div class="message-bubble my-message">
                             <div class="message-bubble-author">
-                                @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username)):
+                                @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username))
                             </div>
                             <div class="message-bubble-content">
                                 @Html.DisplayFor(modelItem => item.messageContent)
@@ -80,8 +80,12 @@
             }
         </ul>
         <div class="messageInputBar">
-            <input type="text" id="messageInput" />
-            <input type="button" id="sendButton" value="Send Message" />
+            <div class="input-group mb-3">
+                <input id="messageInput" type="text" class="form-control" placeholder="Napisz wiadomość..." aria-label="Napisz wiadomość..." aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button id="sendButton" class="btn btn-outline-secondary" type="button">Send Message</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

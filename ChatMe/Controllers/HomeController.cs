@@ -49,7 +49,7 @@ namespace ChatMe.Controllers
                     {
                         IQueryable<FrontMessage> listOfMessagesQuery = from message in _context.Messages
                                           where message.chatID == convId
-                                          orderby message.createdTime
+                                          orderby message.createdTime descending
                                           select new FrontMessage(_context.User.FirstOrDefault(m => m.ID == message.creatorID).displayName, _context.User.FirstOrDefault(m => m.ID == message.creatorID).username, message.messageID, message.createdTime, message.messageContent, message.readedBy, isMyMessage(message.creatorID, logged.ID));
                         listOfMessages = listOfMessagesQuery.Take(20); //.Skip(50)
                         listOfMessages = listOfMessages.OrderBy(message => message.createdTime);
