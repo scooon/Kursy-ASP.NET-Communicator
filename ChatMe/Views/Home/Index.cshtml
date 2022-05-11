@@ -7,92 +7,106 @@
 
 <script>let myID = @user.myID;</script>
 
-<div class="container">
-    <h1>Witaj @user.displayName!</h1>
-    <div class="row">&nbsp;</div>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ChatMe</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Messages" asp-action="Index">Messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <h4>Witaj @user.displayName!</h4>
+                    </li>
+                    <li class="nav-item">
+                        <input type="text" id="userSearchInput" />
+                        <div class="searchListDropdown">
+                            <ul id="searchList"></ul>
+                        </div>
+                    </li>
 
-    <div class="row">
-        <div class="col-2">Search users</div>
-        <div class="col-4"><input type="text" id="userSearchInput" /></div>
-    </div>
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-6">
-            <input type="button" id="userSearchButton" value="Find user" />
+                </ul>
+            </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <hr />
-    </div>
-</div>
-<div class="row">
-    <div class="col-3">
-        <ul id="chatsList">
-            @foreach (FrontChatItem item in Model.listOfConversations)
-            {
-                <li>
-                    <a href="?conversation=@Html.DisplayFor(modelItem => item.chatID)">
-                        @Html.DisplayFor(modelItem => item.chatName) |
-                        @Html.DisplayFor(modelItem => item.lastMessageTime)
-                    </a>
-                </li>
-            }
-        </ul>
-    </div>
-    <div class="col-9 chatWindow">
-        <ul id="messagesList">
-            @foreach (FrontMessage item in Model.listOfMessages)
-            {
-                <li>
-                    @if (item.isMyMessage)
+    </nav>
+</header>
+<div id="appWindow" class="container">
+        <div class="row appRow">
+            <div id="conversationWindow" class="col-3">
+                <ul id="chatsList">
+                    @foreach (FrontChatItem item in Model.listOfConversations)
                     {
-                        <div class="message-bubble my-message">
-                            <div class="message-bubble-author">
-                                @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username))
-                            </div>
-                            <div class="message-bubble-content">
-                                @Html.DisplayFor(modelItem => item.messageContent)
-                            </div>
-                            <div class="message-bubble-createdTime">
-                                @Html.DisplayFor(modelItem => item.createdTime)
-                            </div>
-                        </div>
+                        <li>
+                            <a href="?conversation=@Html.DisplayFor(modelItem => item.chatID)">
+                                @Html.DisplayFor(modelItem => item.chatName) |
+                                @Html.DisplayFor(modelItem => item.lastMessageTime)
+                            </a>
+                        </li>
                     }
-                    else
+                </ul>
+            </div>
+            <div id="chatWindow" class="col-9">
+                <ul id="messagesList">
+                    @foreach (FrontMessage item in Model.listOfMessages)
                     {
-                        <div class="message-bubble">
-                            <div class="message-bubble-author">
-                                @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username)):
-                            </div>
-                            <div class="message-bubble-content">
-                                @Html.DisplayFor(modelItem => item.messageContent)
-                            </div>
-                            <div class="message-bubble-createdTime">
-                                @Html.DisplayFor(modelItem => item.createdTime)
-                            </div>
-                        </div>
-                    }
+                        <li>
+                            @if (item.isMyMessage)
+                            {
+                                <div class="message-bubble my-message">
+                                    <div class="message-bubble-author">
+                                        @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username))
+                                    </div>
+                                    <div class="message-bubble-content">
+                                        @Html.DisplayFor(modelItem => item.messageContent)
+                                    </div>
+                                    <div class="message-bubble-createdTime">
+                                        @Html.DisplayFor(modelItem => item.createdTime)
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="message-bubble">
+                                    <div class="message-bubble-author">
+                                        @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username)):
+                                    </div>
+                                    <div class="message-bubble-content">
+                                        @Html.DisplayFor(modelItem => item.messageContent)
+                                    </div>
+                                    <div class="message-bubble-createdTime">
+                                        @Html.DisplayFor(modelItem => item.createdTime)
+                                    </div>
+                                </div>
+                            }
 
 
-                </li>
-            }
-        </ul>
-        <div class="messageInputBar">
-            <div class="input-group mb-3">
-                <input id="messageInput" type="text" class="form-control" placeholder="Napisz wiadomość..." aria-label="Napisz wiadomość..." aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button id="sendButton" class="btn btn-outline-secondary" type="button">Send Message</button>
+                        </li>
+                    }
+                </ul>
+                <div class="messageInputBar">
+                    <div class="input-group mb-3">
+                        <input id="messageInput" type="text" class="form-control" placeholder="Napisz wiadomość..." aria-label="Napisz wiadomość..." aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button id="sendButton" class="btn btn-outline-secondary" type="button">Send Message</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </div>
-<div class="row">
-    <div class="col-6">
-        <ul id="searchList"></ul>
-    </div>
-</div>
+
+
+
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/chat.js"></script>

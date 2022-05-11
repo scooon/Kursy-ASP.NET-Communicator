@@ -5,7 +5,6 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 //Disable send button until connection is established
 document.getElementById("sendButton").disabled = true;
 
-document.getElementById("userSearchButton").disabled = true;
 
 connection.on("newMessage", function (message) {
     let newMessage = JSON.parse(message);
@@ -68,7 +67,6 @@ connection.on("UserSearchResponse", function (listOfUsers) {
 
 connection.start().then(function () {
     document.getElementById("sendButton").disabled = false;
-    document.getElementById("userSearchButton").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
 });
@@ -96,10 +94,6 @@ function searchUser() {
     console.log($.connection.hub.id);
 }
 
-document.getElementById("userSearchButton").addEventListener("click", function (event) {
-    searchUser();
-    event.preventDefault();
-});
 
 document.getElementById("userSearchInput").addEventListener("input", function (event) {
     searchUser();
@@ -128,3 +122,11 @@ connection.on("SwitchToConversation", function (conversationID) {
     window.location.search = searchParams.toString();
 });
 
+
+// Test autoheight
+// TODO: Dodać event na zmianę rozmiaru okna
+document.getElementById('appWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px"
+
+document.getElementById('chatWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px"
+
+document.getElementById('conversationWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px"
