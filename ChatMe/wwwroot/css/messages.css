@@ -55,3 +55,38 @@
 
 .messageInputBar {
 }
+
+
+/* Conversations */
+#conversationWindow{
+    padding-left: 0;
+}
+
+#chatsList{
+    padding-left: 0;
+}
+
+#chatsList a {
+    text-decoration: none;
+}
+
+.conversationItem{
+    display: flex;
+    height: 75px;
+    list-style-type: none;
+}
+
+    .conversationItem:hover {
+        background-color: rgba(3,40,48, 0.8);
+    }
+
+.avatar {
+    width: 50px;
+    line-height: 40px;
+    border-radius: 100px;
+    clip-path: circle();
+    background-color: #fff;
+    padding: 10px;
+    text-align: center;
+    margin: 0 12px;
+}

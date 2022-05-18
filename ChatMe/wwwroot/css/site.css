@@ -6,6 +6,10 @@ for details on configuring this project to bundle and minify static web assets. 
  
 }
 
+.appRow{
+    margin:0;
+}
+
 #chatWindow{
     overflow: auto;
 }

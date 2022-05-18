@@ -41,22 +41,28 @@
         </div>
     </nav>
 </header>
-<div id="appWindow" class="container">
-        <div class="row appRow">
-            <div id="conversationWindow" class="col-3">
-                <ul id="chatsList">
-                    @foreach (FrontChatItem item in Model.listOfConversations)
-                    {
-                        <li>
-                            <a href="?conversation=@Html.DisplayFor(modelItem => item.chatID)">
-                                @Html.DisplayFor(modelItem => item.chatName) |
+<div id="appWindow">
+    <div class="row appRow">
+        <div id="conversationWindow" class="col-3">
+            <ul id="chatsList">
+                <!-- TODO: Zmienić, że jak dzisiaj to godzina, jak nie to data -->
+                @foreach (FrontChatItem item in Model.listOfConversations)
+                {
+                    <a href="?conversation=@Html.DisplayFor(modelItem => item.chatID)">
+                        <li class="conversationItem">
+                            <span class="avatar">TT</span>
+                            <div class="conversationName">@Html.DisplayFor(modelItem => item.chatName)</div>
+                            <div class="conversationTime">
                                 @Html.DisplayFor(modelItem => item.lastMessageTime)
-                            </a>
+                            </div>
+
                         </li>
-                    }
-                </ul>
-            </div>
-            <div id="chatWindow" class="col-9">
+                    </a>
+                }
+            </ul>
+        </div>
+        <div id="rightPane" class="col-9">
+            <div id="chatWindow">
                 <ul id="messagesList">
                     @foreach (FrontMessage item in Model.listOfMessages)
                     {
@@ -94,16 +100,18 @@
                         </li>
                     }
                 </ul>
-                <div class="messageInputBar">
-                    <div class="input-group mb-3">
-                        <input id="messageInput" type="text" class="form-control" placeholder="Napisz wiadomość..." aria-label="Napisz wiadomość..." aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button id="sendButton" class="btn btn-outline-secondary" type="button">Send Message</button>
-                        </div>
+
+            </div>
+            <div id="messageInputBar" class="messageInputBar">
+                <div class="input-group mb-3">
+                    <input id="messageInput" type="text" class="form-control" placeholder="Napisz wiadomość..." aria-label="Napisz wiadomość..." aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button id="sendButton" class="btn btn-outline-secondary" type="button">Send Message</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </div>
 
 

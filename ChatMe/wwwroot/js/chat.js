@@ -123,10 +123,19 @@ connection.on("SwitchToConversation", function (conversationID) {
 });
 
 
-// Test autoheight
-// TODO: Dodać event na zmianę rozmiaru okna
-document.getElementById('appWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px"
+fitWindow();
 
-document.getElementById('chatWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px"
+function fitWindow() {
 
-document.getElementById('conversationWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px"
+    document.getElementById('appWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px";
+
+    document.getElementById('rightPane').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px";
+
+    document.getElementById('chatWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight - document.getElementById('messageInputBar').clientHeight) + "px";
+
+    document.getElementById('conversationWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px";
+}
+
+window.addEventListener('resize', function (event) {
+    fitWindow();
+}, true);
