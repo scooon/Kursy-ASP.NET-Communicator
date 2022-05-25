@@ -81,8 +81,9 @@
     }
 
 .avatar {
+    position: relative;
     width: 50px;
-    line-height: 40px;
+    /*line-height: 50px;*/
     border-radius: 100px;
     clip-path: circle();
     background-color: #fff;
@@ -90,3 +91,10 @@
     text-align: center;
     margin: 0 12px;
 }
+
+    .avatar span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }

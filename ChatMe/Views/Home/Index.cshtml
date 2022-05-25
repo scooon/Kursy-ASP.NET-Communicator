@@ -50,7 +50,9 @@
                 {
                     <a href="?conversation=@Html.DisplayFor(modelItem => item.chatID)">
                         <li class="conversationItem">
-                            <span class="avatar">TT</span>
+                            <div class="avatar">
+                                <span>TT</span>
+                            </div>
                             <div class="conversationName">@Html.DisplayFor(modelItem => item.chatName)</div>
                             <div class="conversationTime">
                                 @Html.DisplayFor(modelItem => item.lastMessageTime)
