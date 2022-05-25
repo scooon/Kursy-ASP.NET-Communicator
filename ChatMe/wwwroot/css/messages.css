@@ -1,4 +1,6 @@
-﻿#messagesList {
+﻿@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500&display=swap');
+
+#messagesList {
     list-style-type: none;
     display: flex;
     flex-direction: column;
@@ -70,15 +72,19 @@
     text-decoration: none;
 }
 
-.conversationItem{
+.conversationItem {
     display: flex;
     height: 75px;
     list-style-type: none;
+    color: rgba(0,255,200,1);
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
     .conversationItem:hover {
         background-color: rgba(3,40,48, 0.8);
     }
+
+/* TODO: Zrobić border dla kółka zamiast tła */
 
 .avatar {
     position: relative;
@@ -97,4 +103,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        text-transform: uppercase;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: rgba(0,255,200,1);
     }

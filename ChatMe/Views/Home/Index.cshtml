@@ -51,7 +51,7 @@
                     <a href="?conversation=@Html.DisplayFor(modelItem => item.chatID)">
                         <li class="conversationItem">
                             <div class="avatar">
-                                <span>TT</span>
+                                <span>@Html.DisplayFor(modelItem => item.shortcut)</span>
                             </div>
                             <div class="conversationName">@Html.DisplayFor(modelItem => item.chatName)</div>
                             <div class="conversationTime">

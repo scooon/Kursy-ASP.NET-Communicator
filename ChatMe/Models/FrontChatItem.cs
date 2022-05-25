@@ -19,8 +19,12 @@ namespace ChatMe.Models
             else
             {
                 List<int> members = JsonConvert.DeserializeObject<List<int>>(chat.usersIDs);
-                users = new List<MemberUser>(); 
-                members.Remove(logged.ID);
+                users = new List<MemberUser>();
+                if (members.Count > 1)
+                {
+                    members.Remove(logged.ID);
+                }
+
                 foreach(int user in members)
                 {
                     if (_context.User.FirstOrDefault(usr => usr.ID == user) != null){
@@ -33,6 +37,8 @@ namespace ChatMe.Models
                         {
                             chatName = chatName + _context.User.FirstOrDefault(usr => usr.ID == user).displayName;
                         }
+
+                        shortcut = getShortcut(chatName);
 
                         if (members.Count > 1)
                         {
@@ -53,6 +59,39 @@ namespace ChatMe.Models
         public DateTime lastMessageTime { get; set; }
         public List<MemberUser> users { get; set; } // TODO: Zrobić obiekt memberów: id, displayName, userName
         public string chatColor { get; set; }
+        
+        public string shortcut { get; set; }
         public bool isGroupMessage { get; set; }
+
+        private string getShortcut(string chatName)
+        {
+            string shortcut = "";
+            string[] words = chatName.Split();
+            if (chatName.Contains(' '))
+            {
+                int i = 1;
+                foreach(string word in words)
+                {
+                    if((i == 1) || (i == words.Length)) {
+                        shortcut += word.Substring(0, 1);
+                    }
+                }
+                return shortcut;
+            }
+            else
+            {
+                if (chatName.Length > 2)
+                {
+                    shortcut = words[0].Substring(0, 1);
+                    shortcut += words[0].Substring(chatName.Length - 1);
+                }
+                else
+                {
+                    shortcut = chatName;
+                }
+                return shortcut;
+            }
+            
+        }
     }
 }
