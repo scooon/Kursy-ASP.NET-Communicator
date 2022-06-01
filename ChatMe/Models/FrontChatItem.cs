@@ -53,6 +53,28 @@ namespace ChatMe.Models
             
             chatColor = chat.chatColor;
             isGroupMessage = chat.isGroupMessage;
+
+            try
+            {
+                Message lastMessageObject = _context.Messages.OrderByDescending(d => d.createdTime).FirstOrDefault(m => m.chatID == chatID);
+                if (lastMessageObject != null)
+                {
+                    lastMessage = lastMessageObject.messageContent;
+                }
+                else
+                {
+                    lastMessage = "Brak wiadomości 🙁";
+                }
+            }
+            catch (NullReferenceException e)
+            {
+                lastMessage = "Brak wiadomości 🙁";
+            }
+
+            // TODO: Dopisać sprawdzanie odczytania wiadomości;
+            // TODO: Aktualizacja Daty i ostatniej wiadomości po wysłaniu lub przyjściu nowej wiadomości
+            // TODO: Sortowanie konwersacji po zmianie daty ostatniej wiadomości;
+            // TODO: Przycinanie długiej wiadomości;
         }
         public int chatID { get; set; }
         public string chatName { get; set; }
@@ -62,6 +84,9 @@ namespace ChatMe.Models
         
         public string shortcut { get; set; }
         public bool isGroupMessage { get; set; }
+
+        public bool readed { get; set; }
+        public string lastMessage { get; set; }
 
         private string getShortcut(string chatName)
         {

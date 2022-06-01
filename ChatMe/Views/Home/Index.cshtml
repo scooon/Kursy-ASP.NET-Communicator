@@ -49,16 +49,19 @@
                 @foreach (FrontChatItem item in Model.listOfConversations)
                 {
                     <a href="?conversation=@Html.DisplayFor(modelItem => item.chatID)">
-                        <li class="conversationItem">
-                            <div class="avatar">
-                                <span>@Html.DisplayFor(modelItem => item.shortcut)</span>
-                            </div>
+                    <li class="conversationItem">
+                        <div class="avatar">
+                            <span>@Html.DisplayFor(modelItem => item.shortcut)</span>
+                        </div>
+                        <div class="conversationData">
                             <div class="conversationName">@Html.DisplayFor(modelItem => item.chatName)</div>
+                            <div class="conversationLastMessage">@Html.DisplayFor(modelItem => item.lastMessage)</div>
                             <div class="conversationTime">
                                 @Html.DisplayFor(modelItem => item.lastMessageTime)
                             </div>
+                        </div>
 
-                        </li>
+                    </li>
                     </a>
                 }
             </ul>
