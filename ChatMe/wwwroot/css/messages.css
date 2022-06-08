@@ -89,6 +89,7 @@
 .avatar {
     position: relative;
     width: 55px;
+    min-width: 55px;
     /*line-height: 50px;*/
     border-radius: 50%;
     height: 55px;
@@ -138,17 +139,22 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 0;
 }
 
 .conversationName {
     font-size: 15px;
     font-weight: 700;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .conversationLastMessage {
     color: rgba(0,255,200,0.8);
     text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .conversationTime {

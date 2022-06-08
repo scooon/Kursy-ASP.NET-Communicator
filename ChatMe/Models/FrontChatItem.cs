@@ -74,7 +74,6 @@ namespace ChatMe.Models
             // TODO: Dopisać sprawdzanie odczytania wiadomości;
             // TODO: Aktualizacja Daty i ostatniej wiadomości po wysłaniu lub przyjściu nowej wiadomości
             // TODO: Sortowanie konwersacji po zmianie daty ostatniej wiadomości;
-            // TODO: Przycinanie długiej wiadomości;
         }
         public int chatID { get; set; }
         public string chatName { get; set; }
