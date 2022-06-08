@@ -7,6 +7,10 @@ namespace ChatMe.Models
 {
     public class Message
     {
+        public Message()
+        {
+            List<Readed> readedBy = new List<Readed>();
+        }
         public int messageID { get; set; }
         public int chatID { get; set; }
         public int creatorID { get; set; }

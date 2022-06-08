@@ -50,12 +50,28 @@
                 {
                     <a href="?conversation=@Html.DisplayFor(modelItem => item.chatID)">
                     <li class="conversationItem">
-                        <div class="avatar">
-                            <span>@Html.DisplayFor(modelItem => item.shortcut)</span>
-                        </div>
+                        @if (item.readed)
+                        {
+                            <div class="avatar">
+                                <span>@Html.DisplayFor(modelItem => item.shortcut)</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="avatar unreadedAvatar">
+                                <span>@Html.DisplayFor(modelItem => item.shortcut)</span>
+                            </div>
+                        }
                         <div class="conversationData">
                             <div class="conversationName">@Html.DisplayFor(modelItem => item.chatName)</div>
-                            <div class="conversationLastMessage">@Html.DisplayFor(modelItem => item.lastMessage)</div>
+                            @if (item.readed)
+                            {
+                                <div class="conversationLastMessage">@Html.DisplayFor(modelItem => item.lastMessage)</div>
+                            }
+                            else
+                            {
+                                <div class="conversationLastMessage messageUnreaded">@Html.DisplayFor(modelItem => item.lastMessage)</div>
+                            }
                             <div class="conversationTime">
                                 @Html.DisplayFor(modelItem => item.lastMessageTime)
                             </div>

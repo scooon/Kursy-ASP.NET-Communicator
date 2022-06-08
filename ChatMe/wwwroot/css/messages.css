@@ -94,7 +94,6 @@
     border-radius: 50%;
     height: 55px;
     background: rgba(60,60,60,0.4);
-    background: linear-gradient(0deg, rgba(0,255,200,0.2) 0%, rgba(60,60,60,0.4) 50%, rgba(60,60,60,0.4) 100%);
     padding: 10px;
     text-align: center;
     margin: auto 12px;
@@ -161,4 +160,12 @@
     font-weight: 500;
     color: rgba(180,180,180,0.8);
     text-overflow: ellipsis;
+}
+
+.messageUnreaded{
+    font-weight: 700;
+}
+
+.unreadedAvatar {
+    background: linear-gradient(0deg, rgba(0,255,200,0.5) 0%, rgba(60,60,60,0.4) 50%, rgba(60,60,60,0.4) 100%);
 }

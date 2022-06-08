@@ -53,6 +53,19 @@ namespace ChatMe.Controllers
                                           select new FrontMessage(_context.User.FirstOrDefault(m => m.ID == message.creatorID).displayName, _context.User.FirstOrDefault(m => m.ID == message.creatorID).username, message.messageID, message.createdTime, message.messageContent, message.readedBy, isMyMessage(message.creatorID, logged.ID));
                         listOfMessages = listOfMessagesQuery.Take(20); //.Skip(50)
                         listOfMessages = listOfMessages.OrderBy(message => message.createdTime);
+                        foreach (FrontMessage msg in listOfMessages)
+                        {
+                            // TODO: Zapisywanie odczytywania wiadomości w bazie
+                            msg.readedBy.Add(new Readed(logged.ID, DateTime.Now));
+                            Message updatedMsg = _context.Messages.First(msgItem => msgItem.messageID == msg.messageID);
+                            if(updatedMsg.readedBy == null)
+                            {
+                                updatedMsg.readedBy = new List<Readed>();
+                            }
+                            updatedMsg.readedBy.Add(new Readed(logged.ID, DateTime.Now));
+                            _context.Update(updatedMsg);
+                            _context.SaveChanges();
+                        }
                     }
                     
                     dynamic mymodel = new ExpandoObject();

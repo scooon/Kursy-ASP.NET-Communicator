@@ -60,6 +60,17 @@ namespace ChatMe.Models
                 if (lastMessageObject != null)
                 {
                     lastMessage = lastMessageObject.messageContent;
+                    if(lastMessageObject.readedBy == null) {
+                        lastMessageObject.readedBy = new List<Readed>();
+                    }
+                    if(lastMessageObject.readedBy.Contains(new Readed(logged.ID)))
+                    {
+                        readed = true;
+                    }
+                    else
+                    {
+                        readed = false;
+                    }
                 }
                 else
                 {
