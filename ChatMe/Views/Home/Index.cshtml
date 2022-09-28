@@ -104,17 +104,24 @@
                             }
                             else
                             {
-                                <div class="message-bubble">
-                                    <div class="message-bubble-author">
-                                        @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username)):
-                                    </div>
-                                    <div class="message-bubble-content">
-                                        @Html.DisplayFor(modelItem => item.messageContent)
-                                    </div>
-                                    <div class="message-bubble-createdTime">
-                                        @Html.DisplayFor(modelItem => item.createdTime)
-                                    </div>
-                                </div>
+                        <div class="message-bubble">
+                            <div class="message-bubble-author">
+                                @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username)):
+                            </div>
+                            <div class="message-bubble-content">
+                                @Html.DisplayFor(modelItem => item.messageContent)
+                            </div>
+                            <div class="message-bubble-createdTime">
+                                @Html.DisplayFor(modelItem => item.createdTime)
+                            </div>
+                            @foreach (Readed readed in item.readedBy)
+                            {
+                        <div class="message-bubble-readed">
+                            @Html.DisplayFor(item => readed.userID) <!--Do przekminienia żeby brało z modelu (usersInConversation - dynamic model) dane usera po ID-->
+                            @Html.DisplayFor(item => readed.readTime)
+                        </div>
+                            }
+                            </div>
                             }
 
 

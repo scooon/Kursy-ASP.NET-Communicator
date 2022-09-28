@@ -45,6 +45,7 @@ namespace ChatMe.Controllers
 
                     }
                     IEnumerable<FrontMessage> listOfMessages;
+                    IEnumerable<CurrentUserData> usersInConversation = Enumerable.Empty<CurrentUserData>();
                     if (true)
                     {
                         IQueryable<FrontMessage> listOfMessagesQuery = from message in _context.Messages
@@ -56,21 +57,36 @@ namespace ChatMe.Controllers
                         foreach (FrontMessage msg in listOfMessages)
                         {
                             // TODO: Zapisywanie odczytywania wiadomości w bazie
-                            msg.readedBy.Add(new Readed(logged.ID, DateTime.Now));
-                            Message updatedMsg = _context.Messages.First(msgItem => msgItem.messageID == msg.messageID);
-                            if(updatedMsg.readedBy == null)
+                            
+
+                            if ((msg.username != logged.username) && (!msg.readedBy.Any(item => item.userID == logged.ID)))
                             {
-                                updatedMsg.readedBy = new List<Readed>();
+                                msg.readedBy.Add(new Readed(logged.ID, DateTime.Now));
+                                Message updatedMsg = _context.Messages.First(msgItem => msgItem.messageID == msg.messageID);
+                                if (updatedMsg.readedBy == null)
+                                {
+                                    updatedMsg.readedBy = new List<Readed>();
+                                }
+                                updatedMsg.readedBy.Add(new Readed(logged.ID, DateTime.Now));
+                                _context.Update(updatedMsg);
+                                _context.SaveChanges();
                             }
-                            updatedMsg.readedBy.Add(new Readed(logged.ID, DateTime.Now));
-                            _context.Update(updatedMsg);
-                            _context.SaveChanges();
+
+                            foreach (Readed readedUsers in msg.readedBy)
+                            {
+                                if (!usersInConversation.Any(item => item.myID == readedUsers.id))
+                                {
+                                    User usr = _context.User.First(user => user.ID == readedUsers.id);
+                                    usersInConversation.Append(new CurrentUserData(usr));
+                                }
+                            }
                         }
                     }
                     
                     dynamic mymodel = new ExpandoObject();
                     mymodel.currentUserData = new CurrentUserData(logged);
                     mymodel.listOfMessages = listOfMessages;
+                    mymodel.usersInConversation = usersInConversation;
                     mymodel.listOfConversations = getChats(logged, convId);
                     return View(mymodel);
                 }
@@ -105,7 +121,7 @@ namespace ChatMe.Controllers
             {
                 listOfConversations = from chat in _context.Chats
                                       where chat.usersIDs.Contains("["+logged.ID+",") || chat.usersIDs.Contains("," + logged.ID + ",") || chat.usersIDs.Contains("," + logged.ID + "]") || chat.usersIDs.Contains("[" + logged.ID + "]")
-                                      orderby chat.lastMessageTime
+                                      orderby chat.lastMessageTime descending
                                       select new FrontChatItem(chat, logged, _context); //where chat.chatID == currentChat
                 listOfConversations = listOfConversations.Take(20); //.Skip(50)
                 return listOfConversations;
