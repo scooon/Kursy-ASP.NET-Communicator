@@ -45,7 +45,7 @@ namespace ChatMe.Controllers
 
                     }
                     IEnumerable<FrontMessage> listOfMessages;
-                    IEnumerable<CurrentUserData> usersInConversation = Enumerable.Empty<CurrentUserData>();
+                    List<CurrentUserData> usersInConversation = new List<CurrentUserData>();
                     if (true)
                     {
                         IQueryable<FrontMessage> listOfMessagesQuery = from message in _context.Messages
@@ -74,10 +74,10 @@ namespace ChatMe.Controllers
 
                             foreach (Readed readedUsers in msg.readedBy)
                             {
-                                if (!usersInConversation.Any(item => item.myID == readedUsers.id))
+                                if (!usersInConversation.Any(item => item.myID == readedUsers.userID))
                                 {
-                                    User usr = _context.User.First(user => user.ID == readedUsers.id);
-                                    usersInConversation.Append(new CurrentUserData(usr));
+                                    User usr = _context.User.First(user => user.ID == readedUsers.userID);
+                                    usersInConversation.Add(new CurrentUserData(usr));
                                 }
                             }
                         }

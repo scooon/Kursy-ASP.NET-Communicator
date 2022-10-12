@@ -169,3 +169,11 @@
 .unreadedAvatar {
     background: linear-gradient(0deg, rgba(0,255,200,0.5) 0%, rgba(60,60,60,0.4) 50%, rgba(60,60,60,0.4) 100%);
 }
+
+.message-bubble-readed:hover > .message-bubble-readed-details {
+    display: block;
+}
+
+.message-bubble-readed-details {
+    display: none;
+}
