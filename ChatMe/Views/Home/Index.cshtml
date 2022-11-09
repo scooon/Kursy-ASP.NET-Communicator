@@ -104,13 +104,14 @@
 
                                     @foreach (Readed readed in item.readedBy)
                                     {
-                                        <div class="message-bubble-readed">
-                                            @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).username)
-                                            <div class="message-bubble-readed-details">
-                                                @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).displayName)<br>
-                                                @Html.DisplayFor(item => readed.readTime)
-                                            </div>
-                                        </div>
+                                <div class="message-bubble-readed">
+                                    @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).shortcut)
+                                    <span class="message-bubble-readed-details">
+                                        @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).displayName)
+                                        (@Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).username))<br>
+                                        @Html.DisplayFor(item => readed.readTime)
+                                    </span>
+                                </div>
                                     }
 
 
@@ -131,13 +132,14 @@
                                     </div>
                                     @foreach (Readed readed in item.readedBy)
                                     {
-                                        <div class="message-bubble-readed">
-                                            @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).username)
-                                            <div class="message-bubble-readed-details">
-                                                @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).displayName)<br>
-                                                @Html.DisplayFor(item => readed.readTime)
-                                            </div>
-                                        </div>
+                                <div class="message-bubble-readed">
+                                    @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).shortcut)
+                                    <span class="message-bubble-readed-details">
+                                        @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).displayName)
+                                        (@Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).username))<br>
+                                        @Html.DisplayFor(item => readed.readTime)
+                                    <span/>
+                                </div>
                                     }
                                 </div>
                             }

@@ -23,5 +23,7 @@ namespace ChatMe.Models
         public int id { get; set; }
         public int userID { get; set; }
         public DateTime readTime { get; set; }
+
+
     }
 }

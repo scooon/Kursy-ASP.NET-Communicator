@@ -36,8 +36,9 @@ connection.on("newMessage", function (message) {
                                 ${dt.getHours()}:${dt.getMinutes()}
               </div>
             </div></li>`;
+        //TODO: Dorobić obsługę readed z awatarkami.
     }
-
+    groupMessages();
 });
 
 
@@ -84,6 +85,7 @@ document.getElementById("sendButton").addEventListener("click", function (event)
         });
         event.preventDefault();
     }
+    groupMessages();
 });
 
 function searchUser() {
@@ -136,6 +138,25 @@ function fitWindow() {
     document.getElementById('conversationWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px";
 }
 
+function groupMessages() {
+    let messages = document.getElementsByClassName("message-bubble");
+    let author = "null";
+    Array.from(messages).forEach((bubble) => {
+        if (!bubble.getElementsByClassName("message-bubble-author")[0].innerText.includes(author)) {
+            bubble.getElementsByClassName("message-bubble-author")[0].style.display = 'block';
+            bubble.style.borderRadius = "2.1rem 2.1rem 0.25rem 0.25rem";
+        } else {
+            bubble.getElementsByClassName("message-bubble-author")[0].style.display = 'none';
+        }
+
+        author = bubble.getElementsByClassName("message-bubble-author")[0].innerText;
+
+        //TODO: Zaokrąglenia przy grupowaniu z uwzględnieniem, że może być pojedyncza wiadomość oraz moja albo rozmówcy (inny róg zaokrąglony).
+    });
+}
+
 window.addEventListener('resize', function (event) {
     fitWindow();
 }, true);
+
+groupMessages();
