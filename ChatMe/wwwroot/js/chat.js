@@ -138,14 +138,16 @@ function fitWindow() {
     document.getElementById('conversationWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px";
 }
 
-function groupMessages() {
+/*function groupMessages() {
     let messages = document.getElementsByClassName("message-bubble");
     let author = "null";
     let id = 0;
     Array.from(messages).forEach((bubble) => {
         console.log(id);
+        let compare = messages.length - 1;
+        let last = false;
         if (!bubble.getElementsByClassName("message-bubble-author")[0].innerText.includes(author)) {
-
+            
             //TODO: Ostatni bubble nie robi się okrągły
             if (id == 1) {
                 if (!messages[id - 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
@@ -160,12 +162,15 @@ function groupMessages() {
             } else if (id > 1) {
                 if (!messages[id - 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText) && !messages[id - 2].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id - 1].getElementsByClassName("message-bubble-author")[0].innerText)) {
                     messages[id - 1].style.borderRadius = "2.1rem";
+                } else if (!messages[id - 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
+                    messages[id].style.borderRadius = "2.1rem";
                 } else {
-                    if (messages[id - 1].classList.contains("my-message")) {
-                        messages[id - 1].style.borderRadius = "2.1rem 0.25rem 2.1rem 2.1rem";
+                    if (messages[id-1].classList.contains("my-message")) {
+                        messages[id-1].style.borderRadius = "2.1rem 0.25rem 2.1rem 2.1rem";
                     } else {
-                        messages[id - 1].style.borderRadius = "0.25rem 2.1rem 2.1rem 2.1rem";
+                        messages[id-1].style.borderRadius = "0.25rem 2.1rem 2.1rem 2.1rem";
                     }
+                   
                 }
             }
 
@@ -174,26 +179,76 @@ function groupMessages() {
             bubble.getElementsByClassName("message-bubble-author")[0].style.display = 'block';
 
 
-            
+   
                 if (bubble.classList.contains("my-message")) {
                     bubble.style.borderRadius = "2.1rem 2.1rem 0.25rem 2.1rem";
                 } else {
                     bubble.style.borderRadius = "2.1rem 2.1rem 2.1rem 0.25rem";
                 }
+     
             
             
         } else {
             bubble.getElementsByClassName("message-bubble-author")[0].style.display = 'none';
             if (bubble.classList.contains("my-message")) {
-                bubble.style.borderRadius = "2.1rem 0.25rem 0.25rem 2.1rem";
+                if (id == compare) {
+                    console.log("działa2moja")
+                    if (!messages[id - 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
+
+                        messages[id].style.borderRadius = "2.1rem";
+                    } else {
+                        messages[id].style.borderRadius = "2.1rem 0.25rem 2.1rem 2.1rem";
+                    }
+                } else {
+                    bubble.style.borderRadius = "2.1rem 0.25rem 0.25rem 2.1rem";
+                }
             } else {
-                bubble.style.borderRadius = "0.25rem 2.1rem 2.1rem 0.25rem";
+                if (id == compare) {
+                    console.log("działa2kogos")
+                    if (!messages[id - 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
+                        messages[id].style.borderRadius = "2.1rem";
+                    } else {
+                        messages[id].style.borderRadius = "0.25rem 2.1rem 2.1rem 2.1rem";
+                    }
+                } else {
+                    bubble.style.borderRadius = "0.25rem 2.1rem 2.1rem 0.25rem";
+                }
             }
+
+            
         }
 
         author = bubble.getElementsByClassName("message-bubble-author")[0].innerText;
         id++;
         //TODO: Zaokrąglenia przy grupowaniu z uwzględnieniem, że może być pojedyncza wiadomość oraz moja albo rozmówcy (inny róg zaokrąglony).
+    });
+}*/
+
+function groupMessages() {
+    let messages = document.getElementsByClassName("message-bubble");
+    let author = "null";
+    let id = 0;
+    let compare = messages.length - 1;
+    Array.from(messages).forEach((bubble) => {
+        console.log(id);
+        if (bubble.classList.contains("my-message")) {
+
+        } else {
+            if (id == 0) {
+                if (compare > id) {
+                    if (messages[id + 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
+                        messages[id].style.borderRadius = "2.1rem 2.1rem 2.1rem 0.25rem";
+                    } else {
+                        messages[id].style.borderRadius = "2.1rem";
+                    }
+                } else {
+                    messages[id].style.borderRadius = "2.1rem";
+                }
+            } else if (id > 0) {
+                //TODO: Zrobić sprawdzanie tak, że na current id sprawdzamy co było przed i co będzie po, a nie wracamy później i poprawiamy
+            }
+        }
+        id++;
     });
 }
 
