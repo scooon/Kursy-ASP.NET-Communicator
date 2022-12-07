@@ -232,20 +232,102 @@ function groupMessages() {
     Array.from(messages).forEach((bubble) => {
         console.log(id);
         if (bubble.classList.contains("my-message")) {
-
-        } else {
             if (id == 0) {
                 if (compare > id) {
+                    // Jeżeli konwersacja zawiera więcej niż jedną wiadomość
                     if (messages[id + 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
-                        messages[id].style.borderRadius = "2.1rem 2.1rem 2.1rem 0.25rem";
+                        // Jeżeli kolejna wiadomość należy do tego samego autora
+                        messages[id].style.borderRadius = "2.1rem 2.1rem 0.25rem 2.1rem";
                     } else {
+                        // Jeżeli kolejna wiadomość należy do innego autora
                         messages[id].style.borderRadius = "2.1rem";
                     }
                 } else {
+                    // Jeżeli konwersacja zawiera tylko jedną wiadomość
                     messages[id].style.borderRadius = "2.1rem";
                 }
             } else if (id > 0) {
-                //TODO: Zrobić sprawdzanie tak, że na current id sprawdzamy co było przed i co będzie po, a nie wracamy później i poprawiamy
+                // Jeżeli to nie jest pierwsza wiadomość
+                if (compare > id) {
+                    // Jeżeli konwersacja zawiera więcej niż jedną wiadomość, ale to nie jest ostatnia wiadomość
+                    if (messages[id + 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
+                        // Jeżeli kolejna wiadomość jest tego samego autora
+                        if (messages[id - 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
+                            // Jeżeli poprzednia wiadomość jest tego samego autora
+                            messages[id].style.borderRadius = "2.1rem 0.25rem 0.25rem 2.1rem";
+                        } else {
+                            // Jeżeli poprzednia wiadomość jest innego autora
+                            messages[id].style.borderRadius = "2.1rem 2.1rem 0.25rem 2.1rem";
+                        }
+                    } else {
+                        // Jeżeli kolejna wiadomość jest innego autora
+                        if (messages[id - 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
+                            // Jeżeli poprzednia wiadomość jest tego samego autora
+                            messages[id].style.borderRadius = "2.1rem 0.25rem 2.1rem 2.1rem";
+                        } else {
+                            // Jeżeli poprzednia wiadomość jest innego autora
+                            messages[id].style.borderRadius = "2.1rem";
+                        }
+                    }
+                } else {
+                    // Jeżeli to jest ostatnia wiadomość
+                    if (messages[id - 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
+                        // Jeżeli poprzednia wiadomość jest tego samego autora
+                        messages[id].style.borderRadius = "2.1rem 0.25rem 2.1rem 2.1rem";
+                    } else {
+                        // Jeżeli poprzednia wiadomość jest innego autora
+                        messages[id].style.borderRadius = "2.1rem";
+                    }
+                }
+            }
+        } else {
+            if (id == 0) {
+                if (compare > id) {
+                    // Jeżeli konwersacja zawiera więcej niż jedną wiadomość
+                    if (messages[id + 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
+                        // Jeżeli kolejna wiadomość należy do tego samego autora
+                        messages[id].style.borderRadius = "2.1rem 2.1rem 0.25rem 2.1rem";
+                    } else {
+                        // Jeżeli kolejna wiadomość należy do innego autora
+                        messages[id].style.borderRadius = "2.1rem";
+                    }
+                } else {
+                    // Jeżeli konwersacja zawiera tylko jedną wiadomość
+                    messages[id].style.borderRadius = "2.1rem";
+                }
+            } else if (id > 0) {
+                // Jeżeli to nie jest pierwsza wiadomość
+                if (compare > id) {
+                    // Jeżeli konwersacja zawiera więcej niż jedną wiadomość, ale to nie jest ostatnia wiadomość
+                    if (messages[id + 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
+                        // Jeżeli kolejna wiadomość jest tego samego autora
+                        if (messages[id - 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
+                            // Jeżeli poprzednia wiadomość jest tego samego autora
+                            messages[id].style.borderRadius = "2.1rem 0.25rem 0.25rem 2.1rem";
+                        } else {
+                            // Jeżeli poprzednia wiadomość jest innego autora
+                            messages[id].style.borderRadius = "2.1rem 2.1rem 0.25rem 2.1rem";
+                        }
+                    } else {
+                        // Jeżeli kolejna wiadomość jest innego autora
+                        if (messages[id - 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
+                            // Jeżeli poprzednia wiadomość jest tego samego autora
+                            messages[id].style.borderRadius = "2.1rem 0.25rem 2.1rem 2.1rem";
+                        } else {
+                            // Jeżeli poprzednia wiadomość jest innego autora
+                            messages[id].style.borderRadius = "2.1rem";
+                        }
+                    }
+                } else {
+                    // Jeżeli to jest ostatnia wiadomość
+                    if (messages[id - 1].getElementsByClassName("message-bubble-author")[0].innerText.includes(messages[id].getElementsByClassName("message-bubble-author")[0].innerText)) {
+                        // Jeżeli poprzednia wiadomość jest tego samego autora
+                        messages[id].style.borderRadius = "2.1rem 0.25rem 2.1rem 2.1rem";
+                    } else {
+                        // Jeżeli poprzednia wiadomość jest innego autora
+                        messages[id].style.borderRadius = "2.1rem";
+                    }
+                }
             }
         }
         id++;
