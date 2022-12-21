@@ -88,65 +88,80 @@
                 <ul id="messagesList">
                     @foreach (FrontMessage item in Model.listOfMessages)
                     {
-                        <li>
-                            @if (item.isMyMessage)
-                            {
-                            <div class="message-bubble my-message">
-                                <div class="message-bubble-author">
-                                    @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username))
-                                </div>
-                                <div class="message-bubble-content">
-                                    @Html.DisplayFor(modelItem => item.messageContent)
-                                </div>
-                                <div class="message-bubble-createdTime">
-                                    @Html.DisplayFor(modelItem => item.createdTime)
-                                </div>
-                            </div>
-                                    @foreach (Readed readed in item.readedBy)
-                                    {
-                                <div class="message-bubble-readed">
-                                    @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).shortcut)
-                                    <span class="message-bubble-readed-details">
-                                        @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).displayName)
-                                        (@Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).username))<br>
-                                        @Html.DisplayFor(item => readed.readTime)
+
+                        @if (item.isMyMessage)
+                        {
+                            <li class="myLi">
+                                <div class="message-bubble my-message">
+                                    <span class="message-bubble-details">
+                                        <div class="message-bubble-avatar">
+                                            @Html.DisplayFor(modelItem => item.shortcut)
+                                        </div>
+                                        <div class="message-bubble-author">
+                                            @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username))
+                                        </div>
+                                        <div class="message-bubble-createdTime">
+                                            @Html.DisplayFor(modelItem => item.createdTime)
+                                        </div>
                                     </span>
+                                        <div class="message-bubble-content">
+                                            @Html.DisplayFor(modelItem => item.messageContent)
+                                        </div>
+                                        
+</div>
+                                @foreach (Readed readed in item.readedBy)
+                                {
+                                    <div class="message-bubble-readed myItem">
+                                        @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).shortcut)
+                                        <span class="message-bubble-readed-details">
+                                            @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).displayName)
+                                            (@Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).username))<br>
+                                            @Html.DisplayFor(item => readed.readTime)
+                                        </span>
+                                    </div>
+                                }
+
+
+
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="someoneLi">
+                                <div class="message-bubble">
+                                    <span class="message-bubble-details">
+                                        <div class="message-bubble-avatar">
+                                            @Html.DisplayFor(modelItem => item.shortcut)
+                                        </div>
+                                        <div class="message-bubble-author">
+                                            @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username))
+                                        </div>
+                                        <div class="message-bubble-createdTime">
+                                            @Html.DisplayFor(modelItem => item.createdTime)
+                                        </div>
+                                    </span>
+                                    
+                                    <div class="message-bubble-content">
+                                        @Html.DisplayFor(modelItem => item.messageContent)
+                                    </div>
+                                    
                                 </div>
-                                    }
+                                @foreach (Readed readed in item.readedBy)
+                                {
+                                    <div class="message-bubble-readed someoneItem">
+                                        @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).shortcut)
+                                        <span class="message-bubble-readed-details">
+                                            @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).displayName)
+                                            (@Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).username))<br>
+                                            @Html.DisplayFor(item => readed.readTime)
+                                            <span />
+                                    </div>
+                                }
+                            </li>
+                        }
 
 
 
-                                
-                            }
-                            else
-                            {
-                        <div class="message-bubble">
-                            <div class="message-bubble-author">
-                                @Html.DisplayFor(modelItem => item.creatorName) (@Html.DisplayFor(modelItem => item.username)):
-                            </div>
-                            <div class="message-bubble-content">
-                                @Html.DisplayFor(modelItem => item.messageContent)
-                            </div>
-                            <div class="message-bubble-createdTime">
-                                @Html.DisplayFor(modelItem => item.createdTime)
-                            </div>
-                        </div>
-                                    @foreach (Readed readed in item.readedBy)
-                                    {
-                                <div class="message-bubble-readed">
-                                    @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).shortcut)
-                                    <span class="message-bubble-readed-details">
-                                        @Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).displayName)
-                                        (@Html.DisplayFor(item => usersInConversation.FirstOrDefault(usr => usr.myID == readed.userID).username))<br>
-                                        @Html.DisplayFor(item => readed.readTime)
-                                    <span/>
-                                </div>
-                                    }
-                                
-                            }
-
-
-                        </li>
                     }
                 </ul>
 
