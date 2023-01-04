@@ -39,6 +39,7 @@ connection.on("newMessage", function (message) {
         //TODO: Dorobić obsługę readed z awatarkami.
     }
     groupMessages();
+    scrollConvToEnd();
 });
 
 
@@ -335,14 +336,21 @@ function groupMessages() {
 
     let readed = [];
     for (let readedItem = messages.length - 1; readedItem >= 0; readedItem--) {
-        console.log();
         // Nie będzie działać dla konwersacji wieloosobowych! Trzeba będzie zmodyfikować skrypt
-        if (readed.includes(document.getElementById("messagesList").getElementsByTagName("li")[readedItem].getElementsByClassName("message-bubble-readed")[0].innerText)) {
-            document.getElementById("messagesList").getElementsByTagName("li")[readedItem].getElementsByClassName("message-bubble-readed")[0].style.display = "none";
-        } else {
-            readed.push(document.getElementById("messagesList").getElementsByTagName("li")[readedItem].getElementsByClassName("message-bubble-readed")[0].innerText);
+       
+
+        if (document.getElementById("messagesList").getElementsByTagName("li")[readedItem].getElementsByClassName("message-bubble-readed").length > 0) {
+            if (readed.includes(document.getElementById("messagesList").getElementsByTagName("li")[readedItem].getElementsByClassName("message-bubble-readed")[0].innerText)) {
+                document.getElementById("messagesList").getElementsByTagName("li")[readedItem].getElementsByClassName("message-bubble-readed")[0].style.display = "none";
+            } else {
+                readed.push(document.getElementById("messagesList").getElementsByTagName("li")[readedItem].getElementsByClassName("message-bubble-readed")[0].innerText);
+            }
         }
     }
+}
+
+function scrollConvToEnd() {
+    document.getElementById("chatWindow").scrollTo(0, parseInt(window.getComputedStyle(document.getElementById("chatWindow"), null).getPropertyValue("height")) + 200);
 }
 
 window.addEventListener('resize', function (event) {
@@ -350,3 +358,4 @@ window.addEventListener('resize', function (event) {
 }, true);
 
 groupMessages();
+scrollConvToEnd();
