@@ -31,10 +31,7 @@
                         <h4>Witaj @user.displayName!</h4>
                     </li>
                     <li class="nav-item">
-                        <input type="text" id="userSearchInput" />
-                        <div class="searchListDropdown">
-                            <ul id="searchList"></ul>
-                        </div>
+                        <button id="showSearch" class="btn btn-outline-secondary" onclick="showSearch()" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>  
                     </li>
 
                 </ul>
@@ -42,6 +39,15 @@
         </div>
     </nav>
 </header>
+<div id="searchView">
+    <div id="searchViewContent">
+        <button id="closeSearch" class="btn btn-outline-secondary" onclick="closeSearch()" type="button"><i class="fa-regular fa-circle-xmark"></i></button>
+        <input type="text" id="userSearchInput" />
+        <div class="searchListDropdown">
+            <ul id="searchList"></ul>
+        </div>
+    </div>
+</div>
 <div id="appWindow">
     <div class="row appRow">
         <div id="conversationWindow" class="col-3">
@@ -183,7 +189,7 @@
             </div>
             <div id="messageInputBar" class="messageInputBar">
                 <div class="input-group mb-3 messageInputGroup">
-                    <input id="messageInput" type="text" class="form-control" placeholder="Napisz wiadomość..." aria-label="Napisz wiadomość..." aria-describedby="basic-addon2">
+                        <input id="messageInput" type="text" class="form-control" placeholder="Napisz wiadomość..." aria-label="Napisz wiadomość..." aria-describedby="basic-addon2">
                     <div class="input-group-append messageInputAppend">
                         <button id="sendButton" class="btn btn-outline-secondary" type="button"><i class="fa-regular fa-paper-plane"></i></button>
                     </div>

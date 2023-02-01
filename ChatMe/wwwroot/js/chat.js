@@ -74,7 +74,13 @@ connection.start().then(function () {
 });
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
+    if (document.getElementById("messageInput").value != "") {
+        sendMessage();
+    }
+    
+});
 
+function sendMessage() {
     var message = document.getElementById("messageInput").value;
     const urlParams = new URLSearchParams(window.location.search);
     var conversationID = parseInt(urlParams.get('conversation'));
@@ -86,8 +92,17 @@ document.getElementById("sendButton").addEventListener("click", function (event)
         });
         event.preventDefault();
     }
+    document.getElementById("messageInput").value = "";
     groupMessages();
-});
+}
+
+function showSearch() {
+    document.getElementById("searchView").style.display = "block";
+}
+
+function closeSearch() {
+    document.getElementById("searchView").style.display = "none";
+}
 
 function searchUser() {
     var keyword = document.getElementById("userSearchInput").value;
@@ -356,6 +371,24 @@ function scrollConvToEnd() {
 window.addEventListener('resize', function (event) {
     fitWindow();
 }, true);
+
+document.getElementById("messageInput").onkeypress = function (e) {
+    //e = e || window.event;
+    // use e.keyCode
+    if (e.key === "Enter") {
+        if (document.getElementById("messageInput").value != "") {
+            sendMessage();
+        }
+    }
+};
+
+document.getElementById("messageInput").oninput = function (e) {
+    if (document.getElementById("messageInput").value != "") {
+        document.getElementById("sendButton").classList.add("messageNotEmpty");
+    } else {
+        document.getElementById("sendButton").classList.remove("messageNotEmpty");
+    }
+};
 
 groupMessages();
 scrollConvToEnd();

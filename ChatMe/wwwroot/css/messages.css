@@ -124,7 +124,7 @@
 #sendButton {
     border-radius: 0 1.5em 1.5em 0;
     border: 0px;
-    background-color: #fff;
+    background-color: rgb(60,60,60);
 }
 button#sendButton:focus {
     outline: none !important;
@@ -141,9 +141,16 @@ button#sendButton:focus {
 .messageInputBar {
 }
 
+.messageNotEmpty {
+    color: rgba(0,255,200,1);
+}
+
 #messageInput {
     border-radius: 1.5em 0 0 1.5em;
     border-width: 0;
+    background-color: rgb(60,60,60);
+    color: rgba(255,255,255,0.7);
+    padding-left: 18px;
 }
 
 input#messageInput:focus {
@@ -320,4 +327,27 @@ input#messageInput:focus {
         z-index: 1;
         left: -130px;
         right: 115%;
+    }
+
+
+/* -- Search View -- */
+#searchView {
+    z-index: 999;
+    position: absolute;
+    background-color: rgba(30,30,30,0.85);
+    width: 100%;
+    top: 0;
+    height: 100vh;
+    display: none;
+}
+
+#searchViewContent {
+    width: 60%;
+    margin: 2% auto;
+    background-color: rgba(30,30,30,1);
+    
+}
+/* nie działa do dawania w JS albo przez CSS */
+    #searchViewContent:hover ~ #appWindow {
+        filter: blur(1.5rem);
     }
