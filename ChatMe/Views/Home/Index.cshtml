@@ -41,8 +41,17 @@
 </header>
 <div id="searchView">
     <div id="searchViewContent">
-        <button id="closeSearch" class="btn btn-outline-secondary" onclick="closeSearch()" type="button"><i class="fa-regular fa-circle-xmark"></i></button>
-        <input type="text" id="userSearchInput" />
+        <div id="closeSearchBar">
+            <button id="closeSearch" class="btn btn-outline-secondary" onclick="closeSearch()" type="button"><i class="fa-regular fa-circle-xmark"></i></button>
+        </div>
+
+        <div class="input-group mb-3 searchInputGroup">
+            <input id="userSearchInput" type="text" class="form-control" placeholder="Wyszukaj osobę..." aria-label="Wyszukaj osobę..." aria-describedby="basic-addon2">
+            <div class="input-group-append searchInputAppend">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+
         <div class="searchListDropdown">
             <ul id="searchList"></ul>
         </div>

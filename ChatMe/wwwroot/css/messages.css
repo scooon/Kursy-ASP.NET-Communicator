@@ -334,20 +334,92 @@ input#messageInput:focus {
 #searchView {
     z-index: 999;
     position: absolute;
-    background-color: rgba(30,30,30,0.85);
+    background-color: rgba(30,30,30,0.75);
     width: 100%;
     top: 0;
     height: 100vh;
     display: none;
+    backdrop-filter: blur(2px) brightness(50%) grayscale(80%);
 }
 
 #searchViewContent {
     width: 60%;
+    min-height: 80vh;
     margin: 2% auto;
     background-color: rgba(30,30,30,1);
-    
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
 }
-/* nie działa do dawania w JS albo przez CSS */
-    #searchViewContent:hover ~ #appWindow {
-        filter: blur(1.5rem);
+
+#closeSearchBar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#closeSearch {
+    outline: none;
+    border: 0px solid #fff;
+    margin: 0.8em;
+}
+    #closeSearch:hover {
+        background-color: transparent;
+    }
+    #closeSearch i {
+        font-size: 1.3em;
+    }
+
+#userSearchInput {
+    border-radius: 1.5em 0 0 1.5em;
+    border-width: 0;
+    background-color: rgb(60,60,60);
+    color: rgba(255,255,255,0.7);
+    margin-left: 2em;
+    padding: 1.4em;
+}
+
+input#userSearchInput:focus {
+    outline: none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.searchInputGroup i {
+    height: 100%;
+    font-size: 1.3em;
+    display: flex;
+    align-items: center;
+    margin: 0 0.5em;
+}
+
+.searchInputAppend {
+    border-radius: 0 1.5em 1.5em 0;
+    border-width: 0;
+    background-color: rgb(60,60,60);
+    color: rgba(255,255,255,0.2);
+    margin-right: 2em;
+    padding-right: 0.5em;
+}
+
+.searchListDropdown {
+    margin: 0 2em;
+    background-color: rgba(40,40,40,1);
+    border-radius: 10px;
+    margin-top: 0.4em;
+}
+
+#searchList {
+    list-style-type: none;
+    padding: 0.3em 0.2em;
+    margin: 0;
+}
+
+    #searchList li {
+        background-color: rgba(60,60,60,1);
+        margin: 0 2px 0.4em 2px;
+        border-radius: 6px;
+        padding: 0.5em;
     }
