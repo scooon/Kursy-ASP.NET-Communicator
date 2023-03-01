@@ -182,10 +182,12 @@ input#messageInput:focus {
     list-style-type: none;
     color: rgba(0,255,200,1);
     font-family: 'Plus Jakarta Sans', sans-serif;
+    transition-duration: 0.2s;
+    border-bottom: 2px solid rgb(35,35,35);
 }
 
     .conversationItem:hover {
-        background-color: rgba(3,40,48, 0.8);
+        background-color: rgba(45,45,45, 0.8);
     }
 
 
@@ -201,7 +203,7 @@ input#messageInput:focus {
     padding: 10px;
     text-align: center;
     margin: auto 12px;
-    border: 3px solid rgba(0,255,200,1);
+    border: 3px solid rgba(200,200,200,1);
     -webkit-box-shadow: 0px 1px 6px 1px rgba(80, 80, 80, 0.8);
     -moz-box-shadow: 0px 1px 6px 1px rgba(80, 80, 80, 0.8);
     box-shadow: 0px 1px 6px 1px rgba(80, 80, 80, 0.8);
@@ -221,7 +223,7 @@ input#messageInput:focus {
     transform: translate(-50%, -50%);
     text-transform: uppercase;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    color: rgba(0,255,200,1);
+    color: rgba(200,200,200,1);
     text-shadow: 0px 1px 6px rgba(80, 80, 80, 0.8);
 }
 
@@ -248,13 +250,14 @@ input#messageInput:focus {
 .conversationName {
     font-size: 15px;
     font-weight: 700;
+    color: rgba(200,200,200,1);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
 
 .conversationLastMessage {
-    color: rgba(0,255,200,0.8);
+    color: rgba(200,200,200,1);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -264,14 +267,17 @@ input#messageInput:focus {
     font-weight: 500;
     color: rgba(180,180,180,0.8);
     text-overflow: ellipsis;
+    font-size: 0.65rem;
 }
 
 .messageUnreaded {
     font-weight: 700;
+    color: rgba(0,255,200,1);
 }
 
 .unreadedAvatar {
-    background: linear-gradient(0deg, rgba(0,255,200,0.5) 0%, rgba(60,60,60,0.4) 50%, rgba(60,60,60,0.4) 100%);
+    /*background: linear-gradient(0deg, rgba(0,255,200,0.5) 0%, rgba(60,60,60,0.4) 50%, rgba(60,60,60,0.4) 100%);*/
+    border: 3px solid rgba(0,255,200,1);
 }
 
 .message-bubble-readed {
@@ -422,4 +428,8 @@ input#userSearchInput:focus {
         margin: 0 2px 0.4em 2px;
         border-radius: 6px;
         padding: 0.5em;
+        display: flex;
+        flex-direction:row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
     }

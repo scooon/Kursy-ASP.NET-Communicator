@@ -78,13 +78,54 @@ namespace ChatMe.Hubs
                                   user.username.Contains(keyword) ||
                                   user.email.Contains(keyword)
                                   orderby user.displayName
-                                  select new { user.ID, user.username, user.displayName, user.email, user.lastLogin };
+                                  select new { user.ID, user.username, user.displayName, user.email, user.lastLogin};
                 await Clients.Caller.SendAsync("UserSearchResponse", listOfUsers);
             }
             else
             {
                 var empty = new object[0];
                 await Clients.Caller.SendAsync("UserSearchResponse", empty);
+            }
+
+        }
+
+        private string getShortcut(string username, string displayName)
+        {
+            string chatName;
+            if(displayName.Length < 3)
+            {
+                chatName = username;
+            }
+            else
+            {
+                chatName = displayName;
+            }
+            string shortcut = "";
+            string[] words = chatName.Split();
+            if (chatName.Contains(' '))
+            {
+                int i = 1;
+                foreach (string word in words)
+                {
+                    if ((i == 1) || (i == words.Length))
+                    {
+                        shortcut += word.Substring(0, 1);
+                    }
+                }
+                return shortcut;
+            }
+            else
+            {
+                if (chatName.Length > 2)
+                {
+                    shortcut = words[0].Substring(0, 1);
+                    shortcut += words[0].Substring(chatName.Length - 1);
+                }
+                else
+                {
+                    shortcut = chatName;
+                }
+                return shortcut;
             }
 
         }

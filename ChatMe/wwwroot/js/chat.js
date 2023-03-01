@@ -1,5 +1,6 @@
 ﻿"use strict";
 
+
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 //Disable send button until connection is established
@@ -53,12 +54,33 @@ connection.on("UserSearchResponse", function (listOfUsers) {
             console.log(user)
             let li = document.createElement("li");
             let div = document.createElement("div");
-            let label = document.createTextNode(user.displayName + " (" + user.username + ") <" + user.email + ">");
-            div.onclick = "createConversation(" + user.id + ")";
-            div.setAttribute('onclick', "createConversation(" + user.id + ")");
-            div.appendChild(label);
+            div.classList.add("searchItemData");
+            let displayName = document.createElement("div");
+            displayName.classList.add("searchListItemDisplayName");
+            displayName.appendChild(document.createTextNode(user.displayName));
+            let userName = document.createElement("div");
+            userName.classList.add("searchListItemUserName");
+            userName.appendChild(document.createTextNode(user.username));
+            let email = document.createElement("div");
+            email.classList.add("searchListItemEmail");
+            email.appendChild(document.createTextNode(user.email));
+
+            let avatar = document.createElement("div");
+            avatar.classList.add("avatar");
+            let avatarSpan = document.createElement("span");
+            avatarSpan.appendChild(document.createTextNode(getShortcut(user.username, user.displayName).toUpperCase()));
+            avatar.appendChild(avatarSpan);
+
+            li.onclick = "createConversation(" + user.id + ")";
+            li.setAttribute('onclick', "createConversation(" + user.id + ")");
+            div.appendChild(displayName);
+            div.appendChild(userName);
+            div.appendChild(email);
+            li.appendChild(avatar);
             li.appendChild(div);
-            searchList.appendChild(li);
+            searchList.appendChild(li); 
+
+          
         });
     } else {
         let li = document.createElement("li");
@@ -66,6 +88,33 @@ connection.on("UserSearchResponse", function (listOfUsers) {
         searchList.appendChild(li);
     }
 });
+
+function getShortcut(username, displayName) {
+    let chatName;
+    if (displayName.length < 3) {
+        chatName = username;
+    } else {
+        chatName = displayName;
+    }
+    let shortcut = "";
+    if (chatName.includes(' ')) {
+        let words = chatName.split(" ");
+        for (let i = 0; i < words.length; i++) {
+            if ((i == 1) || (i == words.length)) {
+                shortcut += words[i].substring(0, 1);
+            }
+        }
+        return shortcut;
+    } else {
+        if (chatName.length > 2) {
+            shortcut = chatName.substring(0, 1);
+            shortcut += chatName.substring(chatName.length - 1);
+        } else {
+            shortcut = chatName;
+        }
+        return shortcut;
+    }
+}
 
 connection.start().then(function () {
     document.getElementById("sendButton").disabled = false;
@@ -77,7 +126,7 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     if (document.getElementById("messageInput").value != "") {
         sendMessage();
     }
-    
+
 });
 
 function sendMessage() {
@@ -352,7 +401,7 @@ function groupMessages() {
     let readed = [];
     for (let readedItem = messages.length - 1; readedItem >= 0; readedItem--) {
         // Nie będzie działać dla konwersacji wieloosobowych! Trzeba będzie zmodyfikować skrypt
-       
+
 
         if (document.getElementById("messagesList").getElementsByTagName("li")[readedItem].getElementsByClassName("message-bubble-readed").length > 0) {
             if (readed.includes(document.getElementById("messagesList").getElementsByTagName("li")[readedItem].getElementsByClassName("message-bubble-readed")[0].innerText)) {
