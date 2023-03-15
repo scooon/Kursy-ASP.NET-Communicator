@@ -14,8 +14,8 @@ for details on configuring this project to bundle and minify static web assets. 
     overflow: auto;
 }
 
-header{
-    height: 60px;
+header, .navbar{
+    height: 90px;
 }
 
 a.navbar-brand {
@@ -45,7 +45,7 @@ a {
 -------------------------------------------------- */
 html {
     font-size: 14px;
-    background-color: rgb(20,20,20);
+    background-color: rgb(30,30,30);
 }
 @media (min-width: 768px) {
   html {
@@ -81,7 +81,7 @@ body {
     /* Margin bottom by footer height */
     /*margin-bottom: 60px;*/
     height: 100%;
-    background-color: rgb(30,30,30);
+    background-color: rgb(45,45,45);
 }
 .footer {
   position: absolute;

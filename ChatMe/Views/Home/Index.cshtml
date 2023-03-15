@@ -9,7 +9,7 @@
 <script>let myID = @user.myID;</script>
 
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
         <div class="container">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ChatMe</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -30,11 +30,15 @@
                     <li class="nav-item">
                         <h4>Witaj @user.displayName!</h4>
                     </li>
-                    <li class="nav-item">
-                        <button id="showSearch" class="btn btn-outline-secondary" onclick="showSearch()" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>  
-                    </li>
+
 
                 </ul>
+                <div class="input-group searchInputGroup">
+                    <input id="userSearchInput" type="text" class="form-control" placeholder="Wyszukaj osobę..." aria-label="Wyszukaj osobę..." aria-describedby="basic-addon2">
+                    <div class="input-group-append searchInputAppend">
+                        <button id="showSearch" class="btn" onclick="showSearch()" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+</div>
+                </div>
             </div>
         </div>
     </nav>
@@ -197,7 +201,7 @@
 
             </div>
             <div id="messageInputBar" class="messageInputBar">
-                <div class="input-group mb-3 messageInputGroup">
+                <div class="input-group messageInputGroup">
                         <input id="messageInput" type="text" class="form-control" placeholder="Napisz wiadomość..." aria-label="Napisz wiadomość..." aria-describedby="basic-addon2">
                     <div class="input-group-append messageInputAppend">
                         <button id="sendButton" class="btn btn-outline-secondary" type="button"><i class="fa-regular fa-paper-plane"></i></button>
