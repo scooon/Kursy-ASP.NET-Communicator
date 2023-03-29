@@ -10,36 +10,36 @@
 
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
-        <div class="container">
+        <div class="nav-container">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ChatMe</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Messages" asp-action="Index">Messages</a>
-                    </li>
-                    <li class="nav-item">
-                        <h4>Witaj @user.displayName!</h4>
-                    </li>
 
 
-                </ul>
-                <div class="input-group searchInputGroup">
-                    <input id="userSearchInput" type="text" class="form-control" placeholder="Wyszukaj osobę..." aria-label="Wyszukaj osobę..." aria-describedby="basic-addon2">
-                    <div class="input-group-append searchInputAppend">
-                        <button id="showSearch" class="btn" onclick="showSearch()" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
-</div>
+            <div class="input-group userSearchInputGroup">
+                <input id="NavUserSearchInput" type="text" class="form-control" placeholder="Wyszukaj osobę..." aria-label="Wyszukaj osobę..." aria-describedby="basic-addon2" oninput="doSearch()">
+                <div class="input-group-append searchInputAppend">
+                    <button id="showSearch" class="btn" onclick="showSearch()" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </div>
+
+            <div class="nav-user">
+                <div class="avatar unreadedAvatar nav-user-avatar">
+                    <span>@user.shortcut</span>
+                </div>
+                <div class="nav-user-info">
+                    <h6 id="Welcome">Dobry wieczór</h6>
+                    @if (user.displayName.Length > 2)
+                    {
+                        <h5 id="myDisplayName">@user.displayName!</h5>
+                    }
+                    <h6 id="MyUsername">@user.username</h6>
+                </div>
+                <div class="dropdown-content">
+                    <p>Hello World!</p>
+                </div>
+            </div>
+
+
+
         </div>
     </nav>
 </header>
@@ -202,7 +202,7 @@
             </div>
             <div id="messageInputBar" class="messageInputBar">
                 <div class="input-group messageInputGroup">
-                        <input id="messageInput" type="text" class="form-control" placeholder="Napisz wiadomość..." aria-label="Napisz wiadomość..." aria-describedby="basic-addon2">
+                    <input id="messageInput" type="text" class="form-control" placeholder="Napisz wiadomość..." aria-label="Napisz wiadomość..." aria-describedby="basic-addon2">
                     <div class="input-group-append messageInputAppend">
                         <button id="sendButton" class="btn btn-outline-secondary" type="button"><i class="fa-regular fa-paper-plane"></i></button>
                     </div>

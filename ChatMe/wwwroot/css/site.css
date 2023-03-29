@@ -90,3 +90,79 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/* Custom navbar */
+.nav-container {
+    width: 100%;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.nav-user {
+
+    display: flex;
+    color: rgba(200,200,200,1);
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(40,40,40);
+    padding: 0.65rem 1rem;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+    .nav-user:hover {
+        background-color: rgb(45,45,45);
+        box-shadow: 0px 0px 5px 3px rgba(0,255,200,0.95);
+    }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.nav-user:hover .dropdown-content {
+    display: block;
+}
+
+.nav-user-avatar {
+    margin: auto 12px auto 0px !important;
+}
+
+.nav-user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#Welcome, #MyUsername {
+    font-size: 0.8rem;
+    /*line-height: 0.1rem;*/
+    margin: 0;
+    padding: 0;
+}
+
+#MyUsername {
+    color: rgba(200,200,200,0.7);
+    margin: 0;
+    padding: 0;
+}
+
+#myDisplayName {
+    line-height: 1.3rem;
+    margin: 0;
+    padding: 0;
+}
+
+.userSearchInputGroup{
+    width: 60% !important;
+}

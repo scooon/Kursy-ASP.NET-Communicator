@@ -151,14 +151,27 @@ function showSearch() {
 
 function closeSearch() {
     document.getElementById("searchView").style.display = "none";
+    document.getElementById("NavUserSearchInput").value = "";
+    document.getElementById("userSearchInput").value = "";
+}
+
+function doSearch() {
+    let val = document.getElementById("NavUserSearchInput").value;
+    document.getElementById("userSearchInput").value = val;
+    showSearch();
+    searchUser();
 }
 
 function searchUser() {
     var keyword = document.getElementById("userSearchInput").value;
-    connection.invoke("SearchUser", keyword).catch(function (err) {
-        return console.error(err.toString());
-    });
-    console.log($.connection.hub.id);
+    if (keyword != "") {
+        connection.invoke("SearchUser", keyword).catch(function (err) {
+            return console.error(err.toString());
+        });
+        console.log($.connection.hub.id);
+    } else {
+        closeSearch();
+    }
 }
 
 

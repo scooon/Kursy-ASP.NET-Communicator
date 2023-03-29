@@ -405,7 +405,7 @@ input#messageInput:focus {
         font-size: 1.3em;
     }
 
-#userSearchInput {
+#userSearchInput, #NavUserSearchInput {
     border-radius: 1.5em 0 0 1.5em;
     border-width: 0;
     background-color: rgb(60,60,60);
@@ -414,7 +414,7 @@ input#messageInput:focus {
     padding: 1.4em;
 }
 
-input#userSearchInput:focus {
+input#userSearchInput:focus, input#NavUserSearchInput:focus {
     outline: none !important;
     outline-width: 0 !important;
     box-shadow: none;
