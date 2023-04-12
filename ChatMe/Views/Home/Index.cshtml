@@ -20,21 +20,27 @@
                     <button id="showSearch" class="btn" onclick="showSearch()" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </div>
-
-            <div class="nav-user">
-                <div class="avatar unreadedAvatar nav-user-avatar">
-                    <span>@user.shortcut</span>
-                </div>
-                <div class="nav-user-info">
-                    <h6 id="Welcome">Dobry wieczór</h6>
-                    @if (user.displayName.Length > 2)
-                    {
-                        <h5 id="myDisplayName">@user.displayName!</h5>
-                    }
-                    <h6 id="MyUsername">@user.username</h6>
+            <div class="nav-user-container">
+                <div class="nav-user">
+                    <div class="avatar unreadedAvatar nav-user-avatar">
+                        <span>@user.shortcut</span>
+                    </div>
+                    <div class="nav-user-info">
+                        <h6 id="Welcome">Dobry wieczór</h6>
+                        @if (user.displayName.Length > 2)
+                        {
+                            <h5 id="myDisplayName">@user.displayName!</h5>
+                        }
+                        <h6 id="MyUsername">@user.username</h6>
+                    </div>
                 </div>
                 <div class="dropdown-content">
-                    <p>Hello World!</p>
+                    <div class="dropdown-content-wrapper">
+                        <h6>email</h6>
+                        <p class="nav-user-email">@user.email</p>
+                        <h6>o mnie</h6>
+                        <p class="nav-user-about">@user.about</p>
+                    </div>
                 </div>
             </div>
 
