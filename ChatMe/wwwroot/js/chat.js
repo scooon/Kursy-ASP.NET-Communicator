@@ -209,14 +209,21 @@ function fitWindow() {
 
     document.getElementById('appWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px";
 
-    document.getElementById('rightPane').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px";
 
-    document.getElementById('chatWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight - document.getElementById('messageInputBar').clientHeight * 1.5) + "px";
+    var pane = document.getElementById("rightPane");
+    var paneStyle = pane.currentStyle || window.getComputedStyle(pane);
+
+    document.getElementById('rightPane').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight - parseInt(paneStyle.marginTop) - parseInt(paneStyle.marginBottom)) + "px";
+
+
+    document.getElementById('chatWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight - parseInt(paneStyle.marginTop) - parseInt(paneStyle.marginBottom) - document.getElementById('messageInputBar').clientHeight * 1.5) + "px";
 
     document.getElementById('messageInputBar').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight - document.getElementById('chatWindow').clientHeight) + "px";
 
     document.getElementById('conversationWindow').style.height = (document.body.clientHeight - document.getElementsByTagName('header')[0].clientHeight) + "px";
 }
+
+// TODO: Message Box Height not fixed
 
 /*function groupMessages() {
     let messages = document.getElementsByClassName("message-bubble");

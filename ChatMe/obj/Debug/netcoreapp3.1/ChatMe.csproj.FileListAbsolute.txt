@@ -210,3 +210,4 @@ G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\View
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\bin\Debug\netcoreapp3.1\libman.json
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Login\Index.cshtml.g.cs
 G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Login\Logged.cshtml.g.cs
+G:\Kursy\C#\Kursy-ASP.NET-Communicator\ChatMe\obj\Debug\netcoreapp3.1\Razor\Views\Home\Logout.cshtml.g.cs

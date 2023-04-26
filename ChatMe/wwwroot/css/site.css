@@ -19,9 +19,19 @@ header, .navbar{
 }
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    color: rgba(200,200,200,1);
+    font-weight: 500;
+    font-size: 2em;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0 1rem;
+}
+
+#rightPane {
+    border-left: 2px solid rgba(40,40,40,0.4);
+    margin-top: 50px;
 }
 
 /* Provide sufficient contrast against white background */
@@ -212,3 +222,26 @@ body {
 .userSearchInputGroup{
     width: 60% !important;
 }
+
+/* Logout Button / Button Class */
+
+.logoutHref{
+    margin-top: 10px;
+}
+
+.logoutHref, .chatmeButton {
+    padding: 3px 10px 5px 10px;
+    background-color: rgb(40,40,40);
+    color: rgba(200,200,200,1);
+    border: 2px solid rgba(200,200,200,0.7);
+    border-radius: 1.5em;
+    text-align: center;
+    font-size: 0.9em;
+    transition: all 0.4s;
+}
+
+    .logoutHref:hover, .chatmeButton:hover {
+        text-decoration: none !important;
+        color: rgba(0,255,200,0.95);
+        border: 2px solid rgba(0,255,200,0.95);
+    }

@@ -9,7 +9,7 @@
 <script>let myID = @user.myID;</script>
 
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3">
         <div class="nav-container">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ChatMe</a>
 
@@ -40,6 +40,7 @@
                         <p class="nav-user-email">@user.email</p>
                         <h6>o mnie</h6>
                         <p class="nav-user-about">@user.about</p>
+                        <a class="logoutHref" asp-controller="Home" asp-action="Logout">wyloguj</a>
                     </div>
                 </div>
             </div>

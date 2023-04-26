@@ -68,8 +68,8 @@ namespace ChatMe.Controllers
                     _context.Update(currentLogin);
                     await _context.SaveChangesAsync();
                     HttpHelper.HttpContext.Session.SetString("SessionToken", currentLogin.token);
-                    
 
+                   
 
                     return RedirectToAction("Index", "Home");
                 }
