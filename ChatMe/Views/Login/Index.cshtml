@@ -3,43 +3,54 @@
 @{
     ViewData["Title"] = "Login";
 }
+<div class="container-fluid">
+    
+    <div class="row align-items-center justify-content-center loginRow">
 
-<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ChatMe</a>
-
-<hr />
-<div class="row">
-
-    <div class="col-md-4">
-        @if (ViewBag.failed)
-        {
-            <div class="alert error">
-                Incorrect login or password!
+        <div class="col-md-4 loginBadge">
+            <div class="loginBadgeContent">
+                <div class="loginBadgeLogo">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ChatMe</a>
+                </div>
+                @if (ViewBag.failed)
+                {
+                    <div class="alert error">
+                        Nieprawidłowy login lub hasło!
+                    </div>
+                }
+                <form asp-action="Index">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <div class="inputbox">
+                            <ion-icon name="person-outline"></ion-icon>
+                            <label asp-for="username" class="control-label"></label>
+                        </div>
+                            <input asp-for="username" class="form-control" />
+                            <span asp-validation-for="username" class="text-danger"></span>
+                            </div>
+                        
+                    <div class="form-group">
+                        <div class="inputbox">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                            <label asp-for="password" class="control-label">hasło</label>
+                        </div>
+                        <input asp-for="password" type="password" class="form-control" />
+                        <span asp-validation-for="password" class="text-danger"></span>
+                    </div>
+                        <div class="form-group buttons-form-group">
+                            <input type="submit" value="Zaloguj" class="btn chatmeButton " />
+                            <a href="#">Zarejestruj</a>
+                        </div>
+</form>
             </div>
-        }
-        <form asp-action="Index">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="username" class="control-label"></label>
-                <input asp-for="username" class="form-control" />
-                <span asp-validation-for="username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="password" class="control-label"></label>
-                <input asp-for="password" type="password" class="form-control" />
-                <span asp-validation-for="password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
 
-
-<footer class="border-top footer text-muted">
+<footer class="footer text-muted">
     <div class="container">
-        &copy; 2021 - ChatMe - <a asp-area="" asp-controller="Messages" asp-action="Index">Messages</a>
+        &copy; 2023 - ChatMe - <a href="https://scooon.pl">Scooon</a>
     </div>
 </footer>
 

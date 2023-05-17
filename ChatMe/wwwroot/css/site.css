@@ -3,14 +3,13 @@ for details on configuring this project to bundle and minify static web assets. 
 
 /* Layout */
 #appWindow {
- 
 }
 
-.appRow{
-    margin:0;
+.appRow {
+    margin: 0;
 }
 
-#chatWindow{
+#chatWindow {
     overflow: auto;
 }
 
@@ -26,7 +25,7 @@ for details on configuring this project to bundle and minify static web assets. 
 
 
 
-header, .navbar{
+header, .navbar {
     height: 90px;
 }
 
@@ -50,19 +49,24 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: rgba(0,255,200,0.95);
 }
 
+    a:hover {
+        color: rgba(0,255,200,0.95);
+        text-decoration: none;
+    }
+
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
@@ -71,26 +75,28 @@ html {
     font-size: 14px;
     background-color: rgb(30,30,30);
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
@@ -107,12 +113,13 @@ body {
     height: 100%;
     background-color: rgb(45,45,45);
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
 
 /* Custom navbar */
@@ -167,17 +174,17 @@ body {
     background-color: rgb(60,60,60);
     transition: all 0.3s;
 }
-   
-.dropdown-content-wrapper{
-    display:flex;
-    flex-direction:column;
-    text-align:justify;
+
+.dropdown-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
 }
 
-.dropdown-content-wrapper h6{
-    font-size: 0.8em;
-    font-weight:700;
-}
+    .dropdown-content-wrapper h6 {
+        font-size: 0.8em;
+        font-weight: 700;
+    }
 
     .dropdown-content-wrapper p {
         font-size: 0.7em;
@@ -189,7 +196,7 @@ body {
         -webkit-box-orient: vertical;
     }
 
-    .nav-user-container {
+.nav-user-container {
     position: relative;
 }
 
@@ -198,9 +205,9 @@ body {
         box-shadow: 0px 0px 5px 3px rgba(0,255,200,0.95);
     }
 
-.nav-user-container:hover .dropdown-content {
-    display: block;
-}
+    .nav-user-container:hover .dropdown-content {
+        display: block;
+    }
 
 
 
@@ -233,13 +240,13 @@ body {
     padding: 0;
 }
 
-.userSearchInputGroup{
+.userSearchInputGroup {
     width: 60% !important;
 }
 
 /* Logout Button / Button Class */
 
-.logoutHref{
+.logoutHref {
     margin-top: 10px;
 }
 
@@ -260,7 +267,12 @@ body {
         border: 2px solid rgba(0,255,200,0.95);
     }
 
-    /* Custom scrollbar */
+    .chatmeButton:focus {
+        border: 2px solid rgba(0,255,200,0.95);
+        color: rgba(0,255,200,0.95);
+    }
+
+/* Custom scrollbar */
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -289,3 +301,93 @@ body {
 
 /* Login Page */
 
+.loginRow {
+    height: 80vh;
+}
+
+.loginBadge {
+    padding: 1.5em;
+    border: 2px solid rgba(200,200,200,1);
+    border-radius: 15px;
+    color: rgba(200,200,200,1);
+}
+
+.loginBadgeLogo {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5em;
+}
+
+.loginBadgeContent form .buttons-form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    text-align: center;
+}
+
+    .loginBadgeContent form .buttons-form-group .chatmeButton {
+        height:3em;
+    }
+
+    .loginBadgeContent form .buttons-form-group input {
+        margin-top: 1em;
+    }
+
+    .loginBadgeContent form .buttons-form-group a {
+        font-size: 0.8em;
+        margin-top: 2em;
+    }
+
+.loginBadgeContent .alert {
+    text-align: center;
+}
+
+.loginBadgeContent .error {
+    border: 2px solid #fc195d;
+    border-radius: 15px;
+    margin-top: 1.5em;
+    color: #fc195d;
+    font-weight: 700;
+}
+
+.inputbox {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+    .inputbox label {
+        height: 1em;
+        margin-left: 0.3rem;
+    }
+
+.form-control {
+    border-radius: 15px;
+    background-color: rgb(60,60,60);
+    color: rgba(255,255,255,0.7);
+}
+
+    .form-control:focus {
+        background-color: rgb(90,90,90);
+        color: rgba(255,255,255,0.7);
+        border: 2px solid rgba(0,255,200,0.95);
+    }
+
+
+textarea:focus, input:focus, .btn:focus {
+    outline: none !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+*:focus {
+    outline: none !important;
+}
+
+.form-control:focus {
+
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
